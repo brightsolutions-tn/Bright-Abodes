@@ -1,0 +1,49 @@
+# Root .gitignore for Bright Abodes
+
+# Build outputs
+web/dist
+web/dist-ssr
+api/dist
+
+# Node dependencies
+node_modules/
+web/node_modules/
+api/node_modules/
+
+# Environment variables
+.env
+web/.env
+api/.env
+.env.local
+.env.production
+*.local
+
+# Database
+api/local.db
+api/local.db-journal
+api/local.db-shm
+api/local.db-wal
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# OS files
+Thumbs.db
+desktop.ini

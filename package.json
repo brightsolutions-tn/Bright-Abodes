@@ -1,0 +1,14 @@
+{
+  "name": "bright-abodes",
+  "private": true,
+  "workspaces": [
+    "web",
+    "api"
+  ],
+  "scripts": {
+    "web:dev": "npm run dev -w web",
+    "web:build": "npm run build -w web",
+    "api:dev": "npm run dev -w api",
+    "api:build": "npm run build -w api"
+  }
+}
