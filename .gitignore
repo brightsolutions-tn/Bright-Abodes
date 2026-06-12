@@ -24,6 +24,10 @@ api/local.db-journal
 api/local.db-shm
 api/local.db-wal
 
+# Drizzle artifacts
+api/drizzle.config.js*
+api/drizzle.config.d.ts*
+
 # Logs
 logs
 *.log

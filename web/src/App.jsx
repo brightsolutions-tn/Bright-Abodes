@@ -17,12 +17,12 @@ import {
   CheckCircle2,
   X,
   Wallet,
-  ArrowRight,
-  Instagram,
-  Music2
-} from 'lucide-react'
+  ArrowRight
+  } from 'lucide-react'
 
 // --- Components ---
+
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://127.0.0.1:3000'
 
 function CreatorOnboarding() {
   const navigate = useNavigate()
@@ -322,7 +322,7 @@ const BuildingCard = ({ building }) => {
     e.stopPropagation()
     setSaved(!saved)
     try {
-      await fetch('http://127.0.0.1:3000/api/saved/toggle', {
+      await fetch(`${API_BASE_URL}/api/saved/toggle`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ itemType: 'building', itemId: building.id })
@@ -414,7 +414,7 @@ const CinematicPlayer = ({ review, isActive }) => {
   const handleSave = async () => {
     setSaved(!saved)
     try {
-      await fetch('http://127.0.0.1:3000/api/saved/toggle', {
+      await fetch(`${API_BASE_URL}/api/saved/toggle`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ itemType: 'review', itemId: review.id })
@@ -726,7 +726,7 @@ function Saved() {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    fetch('http://127.0.0.1:3000/api/saved')
+    fetch(`${API_BASE_URL}/api/saved`)
       .then(res => res.json())
       .then(data => {
         setItems(Array.isArray(data) ? data : [])
@@ -798,7 +798,7 @@ function Ask() {
   const [newQuestion, setNewQuestion] = useState('')
 
   useEffect(() => {
-    fetch('http://127.0.0.1:3000/api/questions')
+    fetch(`${API_BASE_URL}/api/questions`)
       .then(res => res.json())
       .then(data => {
         setQuestions(Array.isArray(data) ? data : [])
@@ -909,7 +909,7 @@ function Home() {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    fetch('http://127.0.0.1:3000/api/buildings')
+    fetch(`${API_BASE_URL}/api/buildings`)
       .then(res => res.json())
       .then(data => {
         setBuildings(Array.isArray(data) ? data : [])
@@ -979,8 +979,8 @@ function Feed() {
 
   useEffect(() => {
     const url = buildingId 
-      ? `http://127.0.0.1:3000/api/buildings/${buildingId}/reviews`
-      : 'http://127.0.0.1:3000/api/reviews'
+      ? `${API_BASE_URL}/api/buildings/${buildingId}/reviews`
+      : `${API_BASE_URL}/api/reviews`
 
     fetch(url)
       .then(res => {
@@ -1072,7 +1072,7 @@ function Profile() {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    fetch('http://127.0.0.1:3000/api/me')
+    fetch(`${API_BASE_URL}/api/me`)
       .then(res => res.json())
       .then(data => {
         setUser(data)
