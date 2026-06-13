@@ -30,3 +30,6 @@ A community-driven social hub for renters everywhere, providing real-time apartm
 - **Backend:** Fastify, Drizzle ORM, libSQL (Turso).
 - **Video:** Mux.
 - **Auth:** Clerk.
+
+## Production Status
+**Live Deployment**: Bright Abodes is now live. Deployment is handled via GitHub Actions to Vercel (Frontend) and Fly.io (Backend).
