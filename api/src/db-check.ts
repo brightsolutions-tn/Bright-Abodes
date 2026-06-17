@@ -2,12 +2,20 @@ import { createClient } from '@libsql/client';
 
 async function checkConnection() {
   console.log('Testing Turso connection...');
-  console.log('DATABASE_URL is set:', !!process.env.DATABASE_URL);
-  console.log('DATABASE_AUTH_TOKEN is set:', !!process.env.DATABASE_AUTH_TOKEN);
+  const url = (process.env.DATABASE_URL || '').trim();
+  const token = (process.env.DATABASE_AUTH_TOKEN || '').trim();
+
+  console.log('DATABASE_URL is set:', !!url);
+  if (url) {
+    console.log('DATABASE_URL protocol:', url.split('://')[0] + '://');
+    console.log('DATABASE_URL length:', url.length);
+  }
+  console.log('DATABASE_AUTH_TOKEN is set:', !!token);
+  console.log('DATABASE_AUTH_TOKEN length:', token.length);
 
   const client = createClient({
-    url: (process.env.DATABASE_URL || '').trim(),
-    authToken: process.env.DATABASE_AUTH_TOKEN?.trim() || '',
+    url,
+    authToken: token,
   });
 
   try {
