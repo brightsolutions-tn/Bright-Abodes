@@ -6,6 +6,8 @@ export default defineConfig({
   dialect: 'turso',
   dbCredentials: {
     url: process.env.DATABASE_URL!.trim(),
-    authToken: process.env.DATABASE_AUTH_TOKEN!.trim(),
+    authToken: process.env.DATABASE_AUTH_TOKEN!.trim().startsWith('Bearer ') 
+      ? process.env.DATABASE_AUTH_TOKEN!.trim().substring(7).trim() 
+      : process.env.DATABASE_AUTH_TOKEN!.trim(),
   },
 });
