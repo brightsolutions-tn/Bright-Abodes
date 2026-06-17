@@ -27,6 +27,13 @@ jobs:
         working-directory: api
         run: npm ci
 
+      - name: Run database connection check
+        working-directory: api
+        run: npm run db:check
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          DATABASE_AUTH_TOKEN: ${{ secrets.DATABASE_AUTH_TOKEN }}
+
       - name: Run database migrations
         working-directory: api
         run: npm run db:migrate
