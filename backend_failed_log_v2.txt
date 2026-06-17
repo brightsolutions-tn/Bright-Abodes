@@ -1,0 +1,239 @@
+Deploy API	Set up job	﻿2026-06-17T21:08:44.9035180Z Current runner version: '2.335.1'
+Deploy API	Set up job	2026-06-17T21:08:44.9070783Z ##[group]Runner Image Provisioner
+Deploy API	Set up job	2026-06-17T21:08:44.9072483Z Hosted Compute Agent
+Deploy API	Set up job	2026-06-17T21:08:44.9073552Z Version: 20260611.554
+Deploy API	Set up job	2026-06-17T21:08:44.9075245Z Commit: 5e0782fdc9014723d3be820dd114dd31555c2bd1
+Deploy API	Set up job	2026-06-17T21:08:44.9076601Z Build Date: 2026-06-11T21:40:46Z
+Deploy API	Set up job	2026-06-17T21:08:44.9078417Z Worker ID: {14ac0867-b59c-4534-a83b-250450e3f6a9}
+Deploy API	Set up job	2026-06-17T21:08:44.9079729Z Azure Region: westus
+Deploy API	Set up job	2026-06-17T21:08:44.9080804Z ##[endgroup]
+Deploy API	Set up job	2026-06-17T21:08:44.9083580Z ##[group]Operating System
+Deploy API	Set up job	2026-06-17T21:08:44.9085031Z Ubuntu
+Deploy API	Set up job	2026-06-17T21:08:44.9086079Z 24.04.4
+Deploy API	Set up job	2026-06-17T21:08:44.9087029Z LTS
+Deploy API	Set up job	2026-06-17T21:08:44.9088143Z ##[endgroup]
+Deploy API	Set up job	2026-06-17T21:08:44.9089249Z ##[group]Runner Image
+Deploy API	Set up job	2026-06-17T21:08:44.9090423Z Image: ubuntu-24.04
+Deploy API	Set up job	2026-06-17T21:08:44.9091635Z Version: 20260615.205.1
+Deploy API	Set up job	2026-06-17T21:08:44.9093697Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20260615.205/images/ubuntu/Ubuntu2404-Readme.md
+Deploy API	Set up job	2026-06-17T21:08:44.9097295Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20260615.205
+Deploy API	Set up job	2026-06-17T21:08:44.9099112Z ##[endgroup]
+Deploy API	Set up job	2026-06-17T21:08:44.9101428Z ##[group]GITHUB_TOKEN Permissions
+Deploy API	Set up job	2026-06-17T21:08:44.9104813Z Contents: read
+Deploy API	Set up job	2026-06-17T21:08:44.9105924Z Metadata: read
+Deploy API	Set up job	2026-06-17T21:08:44.9106994Z Packages: read
+Deploy API	Set up job	2026-06-17T21:08:44.9108170Z ##[endgroup]
+Deploy API	Set up job	2026-06-17T21:08:44.9111322Z Secret source: Actions
+Deploy API	Set up job	2026-06-17T21:08:44.9113030Z Prepare workflow directory
+Deploy API	Set up job	2026-06-17T21:08:44.9563329Z Prepare all required actions
+Deploy API	Set up job	2026-06-17T21:08:44.9600816Z Getting action download info
+Deploy API	Set up job	2026-06-17T21:08:45.3592544Z Download action repository 'actions/checkout@v4' (SHA:34e114876b0b11c390a56381ad16ebd13914f8d5)
+Deploy API	Set up job	2026-06-17T21:08:45.4438884Z Download action repository 'actions/setup-node@v4' (SHA:49933ea5288caeca8642d1e84afbd3f7d6820020)
+Deploy API	Set up job	2026-06-17T21:08:45.5254102Z Download action repository 'superfly/flyctl-actions@master' (SHA:ed8efb33836e8b2096c7fd3ba1c8afe303ebbff1)
+Deploy API	Set up job	2026-06-17T21:08:45.9597571Z Complete job name: Deploy API
+Deploy API	Run actions/checkout@v4	﻿2026-06-17T21:08:46.0333376Z Node 20 is being deprecated. This workflow is running with Node 24 by default. If you need to temporarily use Node 20, you can set the ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION=true environment variable. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+Deploy API	Run actions/checkout@v4	2026-06-17T21:08:46.0342610Z ##[group]Run actions/checkout@v4
+Deploy API	Run actions/checkout@v4	2026-06-17T21:08:46.0343362Z with:
+Deploy API	Run actions/checkout@v4	2026-06-17T21:08:46.0343857Z   repository: brightsolutions-tn/Bright-Abodes
+Deploy API	Run actions/checkout@v4	2026-06-17T21:08:46.0348787Z   token: ***
+Deploy API	Run actions/checkout@v4	2026-06-17T21:08:46.0349231Z   ssh-strict: true
+Deploy API	Run actions/checkout@v4	2026-06-17T21:08:46.0349669Z   ssh-user: git
+Deploy API	Run actions/checkout@v4	2026-06-17T21:08:46.0350131Z   persist-credentials: true
+Deploy API	Run actions/checkout@v4	2026-06-17T21:08:46.0350620Z   clean: true
+Deploy API	Run actions/checkout@v4	2026-06-17T21:08:46.0351065Z   sparse-checkout-cone-mode: true
+Deploy API	Run actions/checkout@v4	2026-06-17T21:08:46.0351592Z   fetch-depth: 1
+Deploy API	Run actions/checkout@v4	2026-06-17T21:08:46.0352034Z   fetch-tags: false
+Deploy API	Run actions/checkout@v4	2026-06-17T21:08:46.0352474Z   show-progress: true
+Deploy API	Run actions/checkout@v4	2026-06-17T21:08:46.0352937Z   lfs: false
+Deploy API	Run actions/checkout@v4	2026-06-17T21:08:46.0353353Z   submodules: false
+Deploy API	Run actions/checkout@v4	2026-06-17T21:08:46.0353837Z   set-safe-directory: true
+Deploy API	Run actions/checkout@v4	2026-06-17T21:08:46.0354736Z ##[endgroup]
+Deploy API	Run actions/checkout@v4	2026-06-17T21:08:46.1304766Z Syncing repository: brightsolutions-tn/Bright-Abodes
+Deploy API	Run actions/checkout@v4	2026-06-17T21:08:46.1306670Z ##[group]Getting Git version info
+Deploy API	Run actions/checkout@v4	2026-06-17T21:08:46.1307485Z Working directory is '/home/runner/work/Bright-Abodes/Bright-Abodes'
+Deploy API	Run actions/checkout@v4	2026-06-17T21:08:46.1308575Z [command]/usr/bin/git version
+Deploy API	Run actions/checkout@v4	2026-06-17T21:08:46.1388392Z git version 2.54.0
+Deploy API	Run actions/checkout@v4	2026-06-17T21:08:46.1408788Z ##[endgroup]
+Deploy API	Run actions/checkout@v4	2026-06-17T21:08:46.1422688Z Temporarily overriding HOME='/home/runner/work/_temp/75c57b4c-836a-4e8f-8966-68d31557567b' before making global git config changes
+Deploy API	Run actions/checkout@v4	2026-06-17T21:08:46.1424912Z Adding repository directory to the temporary git global config as a safe directory
+Deploy API	Run actions/checkout@v4	2026-06-17T21:08:46.1428239Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/Bright-Abodes/Bright-Abodes
+Deploy API	Run actions/checkout@v4	2026-06-17T21:08:46.1473125Z Deleting the contents of '/home/runner/work/Bright-Abodes/Bright-Abodes'
+Deploy API	Run actions/checkout@v4	2026-06-17T21:08:46.1477889Z ##[group]Initializing the repository
+Deploy API	Run actions/checkout@v4	2026-06-17T21:08:46.1482192Z [command]/usr/bin/git init /home/runner/work/Bright-Abodes/Bright-Abodes
+Deploy API	Run actions/checkout@v4	2026-06-17T21:08:46.1582020Z hint: Using 'master' as the name for the initial branch. This default branch name
+Deploy API	Run actions/checkout@v4	2026-06-17T21:08:46.1583168Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+Deploy API	Run actions/checkout@v4	2026-06-17T21:08:46.1584507Z hint: to use in all of your new repositories, which will suppress this warning,
+Deploy API	Run actions/checkout@v4	2026-06-17T21:08:46.1585380Z hint: call:
+Deploy API	Run actions/checkout@v4	2026-06-17T21:08:46.1585943Z hint:
+Deploy API	Run actions/checkout@v4	2026-06-17T21:08:46.1586883Z hint: 	git config --global init.defaultBranch <name>
+Deploy API	Run actions/checkout@v4	2026-06-17T21:08:46.1587757Z hint:
+Deploy API	Run actions/checkout@v4	2026-06-17T21:08:46.1588695Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+Deploy API	Run actions/checkout@v4	2026-06-17T21:08:46.1590593Z hint: 'development'. The just-created branch can be renamed via this command:
+Deploy API	Run actions/checkout@v4	2026-06-17T21:08:46.1592055Z hint:
+Deploy API	Run actions/checkout@v4	2026-06-17T21:08:46.1592924Z hint: 	git branch -m <name>
+Deploy API	Run actions/checkout@v4	2026-06-17T21:08:46.1593896Z hint:
+Deploy API	Run actions/checkout@v4	2026-06-17T21:08:46.1595447Z hint: Disable this message with "git config set advice.defaultBranchName false"
+Deploy API	Run actions/checkout@v4	2026-06-17T21:08:46.1597387Z Initialized empty Git repository in /home/runner/work/Bright-Abodes/Bright-Abodes/.git/
+Deploy API	Run actions/checkout@v4	2026-06-17T21:08:46.1600666Z [command]/usr/bin/git remote add origin https://github.com/brightsolutions-tn/Bright-Abodes
+Deploy API	Run actions/checkout@v4	2026-06-17T21:08:46.1671890Z ##[endgroup]
+Deploy API	Run actions/checkout@v4	2026-06-17T21:08:46.1673367Z ##[group]Disabling automatic garbage collection
+Deploy API	Run actions/checkout@v4	2026-06-17T21:08:46.1676324Z [command]/usr/bin/git config --local gc.auto 0
+Deploy API	Run actions/checkout@v4	2026-06-17T21:08:46.1704983Z ##[endgroup]
+Deploy API	Run actions/checkout@v4	2026-06-17T21:08:46.1706429Z ##[group]Setting up auth
+Deploy API	Run actions/checkout@v4	2026-06-17T21:08:46.1712293Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+Deploy API	Run actions/checkout@v4	2026-06-17T21:08:46.1745698Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+Deploy API	Run actions/checkout@v4	2026-06-17T21:08:46.2075388Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+Deploy API	Run actions/checkout@v4	2026-06-17T21:08:46.2104679Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+Deploy API	Run actions/checkout@v4	2026-06-17T21:08:46.2321120Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+Deploy API	Run actions/checkout@v4	2026-06-17T21:08:46.2350686Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+Deploy API	Run actions/checkout@v4	2026-06-17T21:08:46.2568155Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+Deploy API	Run actions/checkout@v4	2026-06-17T21:08:46.2603878Z ##[endgroup]
+Deploy API	Run actions/checkout@v4	2026-06-17T21:08:46.2605121Z ##[group]Fetching the repository
+Deploy API	Run actions/checkout@v4	2026-06-17T21:08:46.2613393Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +72b0322f5f8cc4f0b193d4c9110346364417afe6:refs/remotes/origin/main
+Deploy API	Run actions/checkout@v4	2026-06-17T21:08:46.7377778Z From https://github.com/brightsolutions-tn/Bright-Abodes
+Deploy API	Run actions/checkout@v4	2026-06-17T21:08:46.7380535Z  * [new ref]         72b0322f5f8cc4f0b193d4c9110346364417afe6 -> origin/main
+Deploy API	Run actions/checkout@v4	2026-06-17T21:08:46.7414124Z ##[endgroup]
+Deploy API	Run actions/checkout@v4	2026-06-17T21:08:46.7416503Z ##[group]Determining the checkout info
+Deploy API	Run actions/checkout@v4	2026-06-17T21:08:46.7418787Z ##[endgroup]
+Deploy API	Run actions/checkout@v4	2026-06-17T21:08:46.7422850Z [command]/usr/bin/git sparse-checkout disable
+Deploy API	Run actions/checkout@v4	2026-06-17T21:08:46.7465982Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+Deploy API	Run actions/checkout@v4	2026-06-17T21:08:46.7493882Z ##[group]Checking out the ref
+Deploy API	Run actions/checkout@v4	2026-06-17T21:08:46.7498168Z [command]/usr/bin/git checkout --progress --force -B main refs/remotes/origin/main
+Deploy API	Run actions/checkout@v4	2026-06-17T21:08:46.7580501Z Switched to a new branch 'main'
+Deploy API	Run actions/checkout@v4	2026-06-17T21:08:46.7583936Z branch 'main' set up to track 'origin/main'.
+Deploy API	Run actions/checkout@v4	2026-06-17T21:08:46.7589893Z ##[endgroup]
+Deploy API	Run actions/checkout@v4	2026-06-17T21:08:46.7629950Z [command]/usr/bin/git log -1 --format=%H
+Deploy API	Run actions/checkout@v4	2026-06-17T21:08:46.7652140Z 72b0322f5f8cc4f0b193d4c9110346364417afe6
+Deploy API	Setup Node.js	﻿2026-06-17T21:08:46.8010004Z Node 20 is being deprecated. This workflow is running with Node 24 by default. If you need to temporarily use Node 20, you can set the ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION=true environment variable. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+Deploy API	Setup Node.js	2026-06-17T21:08:46.8016207Z ##[group]Run actions/setup-node@v4
+Deploy API	Setup Node.js	2026-06-17T21:08:46.8017340Z with:
+Deploy API	Setup Node.js	2026-06-17T21:08:46.8080264Z   node-version: 20
+Deploy API	Setup Node.js	2026-06-17T21:08:46.8081315Z   cache: npm
+Deploy API	Setup Node.js	2026-06-17T21:08:46.8082358Z   cache-dependency-path: api/package-lock.json
+Deploy API	Setup Node.js	2026-06-17T21:08:46.8083697Z   always-auth: false
+Deploy API	Setup Node.js	2026-06-17T21:08:46.8084818Z   check-latest: false
+Deploy API	Setup Node.js	2026-06-17T21:08:46.8097494Z   token: ***
+Deploy API	Setup Node.js	2026-06-17T21:08:46.8098345Z ##[endgroup]
+Deploy API	Setup Node.js	2026-06-17T21:08:46.9532149Z Attempting to download 20...
+Deploy API	Setup Node.js	2026-06-17T21:08:46.9642187Z (node:2278) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+Deploy API	Setup Node.js	2026-06-17T21:08:46.9647471Z (Use `node --trace-deprecation ...` to show where the warning was created)
+Deploy API	Setup Node.js	2026-06-17T21:08:47.8407184Z Acquiring 20.20.2 - x64 from https://github.com/actions/node-versions/releases/download/20.20.2-23521894959/node-20.20.2-linux-x64.tar.gz
+Deploy API	Setup Node.js	2026-06-17T21:08:48.3075896Z Extracting ...
+Deploy API	Setup Node.js	2026-06-17T21:08:48.3192431Z [command]/usr/bin/tar xz --strip 1 --warning=no-unknown-keyword --overwrite -C /home/runner/work/_temp/66a1f108-11d6-441c-a06d-835469a582d8 -f /home/runner/work/_temp/f60a23e2-da4a-4392-b5a3-8ae8bf959fb5
+Deploy API	Setup Node.js	2026-06-17T21:08:49.3169722Z Adding to the cache ...
+Deploy API	Setup Node.js	2026-06-17T21:08:51.1071001Z ##[group]Environment details
+Deploy API	Setup Node.js	2026-06-17T21:08:51.3224128Z node: v20.20.2
+Deploy API	Setup Node.js	2026-06-17T21:08:51.3245267Z npm: 10.8.2
+Deploy API	Setup Node.js	2026-06-17T21:08:51.3253384Z yarn: 1.22.22
+Deploy API	Setup Node.js	2026-06-17T21:08:51.3254176Z ##[endgroup]
+Deploy API	Setup Node.js	2026-06-17T21:08:51.3254991Z [command]/opt/hostedtoolcache/node/20.20.2/x64/bin/npm config get cache
+Deploy API	Setup Node.js	2026-06-17T21:08:51.4256105Z /home/runner/.npm
+Deploy API	Setup Node.js	2026-06-17T21:08:51.6969402Z npm cache is not found
+Deploy API	Install dependencies	﻿2026-06-17T21:08:51.7157252Z ##[group]Run npm ci
+Deploy API	Install dependencies	2026-06-17T21:08:51.7157573Z ^[[36;1mnpm ci^[[0m
+Deploy API	Install dependencies	2026-06-17T21:08:51.7333784Z shell: /usr/bin/bash -e {0}
+Deploy API	Install dependencies	2026-06-17T21:08:51.7334478Z ##[endgroup]
+Deploy API	Install dependencies	2026-06-17T21:08:55.8489975Z 
+Deploy API	Install dependencies	2026-06-17T21:08:55.8500821Z added 99 packages, and audited 101 packages in 4s
+Deploy API	Install dependencies	2026-06-17T21:08:55.8501204Z 
+Deploy API	Install dependencies	2026-06-17T21:08:55.8501436Z 25 packages are looking for funding
+Deploy API	Install dependencies	2026-06-17T21:08:55.8501777Z   run `npm fund` for details
+Deploy API	Install dependencies	2026-06-17T21:08:55.8612394Z 
+Deploy API	Install dependencies	2026-06-17T21:08:55.8612954Z 4 moderate severity vulnerabilities
+Deploy API	Install dependencies	2026-06-17T21:08:55.8613366Z 
+Deploy API	Install dependencies	2026-06-17T21:08:55.8613775Z To address all issues (including breaking changes), run:
+Deploy API	Install dependencies	2026-06-17T21:08:55.8614641Z   npm audit fix --force
+Deploy API	Install dependencies	2026-06-17T21:08:55.8614910Z 
+Deploy API	Install dependencies	2026-06-17T21:08:55.8615128Z Run `npm audit` for details.
+Deploy API	Run database connection check	﻿2026-06-17T21:08:55.8839889Z ##[group]Run npm run db:check
+Deploy API	Run database connection check	2026-06-17T21:08:55.8840233Z ^[[36;1mnpm run db:check^[[0m
+Deploy API	Run database connection check	2026-06-17T21:08:55.8872712Z shell: /usr/bin/bash -e {0}
+Deploy API	Run database connection check	2026-06-17T21:08:55.8872995Z env:
+Deploy API	Run database connection check	2026-06-17T21:08:55.8873552Z   DATABASE_URL: ***
+Deploy API	Run database connection check	2026-06-17T21:08:55.8875689Z   DATABASE_AUTH_TOKEN: ***
+Deploy API	Run database connection check	2026-06-17T21:08:55.8875944Z ##[endgroup]
+Deploy API	Run database connection check	2026-06-17T21:08:56.0212194Z 
+Deploy API	Run database connection check	2026-06-17T21:08:56.0212565Z > api@1.0.0 db:check
+Deploy API	Run database connection check	2026-06-17T21:08:56.0213068Z > tsx src/db-check.ts
+Deploy API	Run database connection check	2026-06-17T21:08:56.0213335Z 
+Deploy API	Run database connection check	2026-06-17T21:08:56.3888859Z Testing Turso connection...
+Deploy API	Run database connection check	2026-06-17T21:08:56.3892603Z DATABASE_URL is set: true
+Deploy API	Run database connection check	2026-06-17T21:08:56.3893135Z DATABASE_URL protocol: libsql://
+Deploy API	Run database connection check	2026-06-17T21:08:56.3893946Z DATABASE_URL length: 67
+Deploy API	Run database connection check	2026-06-17T21:08:56.3894681Z DATABASE_AUTH_TOKEN is set: true
+Deploy API	Run database connection check	2026-06-17T21:08:56.3895922Z DATABASE_AUTH_TOKEN length: 302
+Deploy API	Run database connection check	2026-06-17T21:08:57.5723128Z Connection successful!
+Deploy API	Run database connection check	2026-06-17T21:08:57.5723926Z Result: [{"check_val":1}]
+Deploy API	Run database migrations	﻿2026-06-17T21:08:57.6590013Z ##[group]Run npm run db:migrate
+Deploy API	Run database migrations	2026-06-17T21:08:57.6590349Z ^[[36;1mnpm run db:migrate^[[0m
+Deploy API	Run database migrations	2026-06-17T21:08:57.6622781Z shell: /usr/bin/bash -e {0}
+Deploy API	Run database migrations	2026-06-17T21:08:57.6623039Z env:
+Deploy API	Run database migrations	2026-06-17T21:08:57.6623503Z   DATABASE_URL: ***
+Deploy API	Run database migrations	2026-06-17T21:08:57.6625856Z   DATABASE_AUTH_TOKEN: ***
+Deploy API	Run database migrations	2026-06-17T21:08:57.6626107Z ##[endgroup]
+Deploy API	Run database migrations	2026-06-17T21:08:57.7898531Z 
+Deploy API	Run database migrations	2026-06-17T21:08:57.7899040Z > api@1.0.0 db:migrate
+Deploy API	Run database migrations	2026-06-17T21:08:57.7899691Z > drizzle-kit push --force
+Deploy API	Run database migrations	2026-06-17T21:08:57.7900022Z 
+Deploy API	Run database migrations	2026-06-17T21:08:57.9261227Z No config path provided, using default 'drizzle.config.ts'
+Deploy API	Run database migrations	2026-06-17T21:08:57.9265692Z Reading config file '/home/runner/work/Bright-Abodes/Bright-Abodes/api/drizzle.config.ts'
+Deploy API	Run database migrations	2026-06-17T21:08:58.2260319Z [⣷] Pulling schema from database...
+Deploy API	Run database migrations	2026-06-17T21:08:58.3525439Z ^[[2K^[[1G[⣯] Pulling schema from database...
+Deploy API	Run database migrations	2026-06-17T21:08:58.4808886Z ^[[2K^[[1G[⣟] Pulling schema from database...
+Deploy API	Run database migrations	2026-06-17T21:08:58.6103158Z ^[[2K^[[1G[⡿] Pulling schema from database...
+Deploy API	Run database migrations	2026-06-17T21:08:58.7382839Z ^[[2K^[[1G[⢿] Pulling schema from database...
+Deploy API	Run database migrations	2026-06-17T21:08:58.8672190Z ^[[2K^[[1G[⣻] Pulling schema from database...
+Deploy API	Run database migrations	2026-06-17T21:08:58.9958418Z ^[[2K^[[1G[⣽] Pulling schema from database...
+Deploy API	Run database migrations	2026-06-17T21:08:59.1029515Z ^[[2K^[[1G[✓] Pulling schema from database...
+Deploy API	Run database migrations	2026-06-17T21:08:59.5293671Z [✓] Changes applied
+Deploy API	Run production seeding	﻿2026-06-17T21:08:59.5448725Z ##[group]Run npm run db:seed
+Deploy API	Run production seeding	2026-06-17T21:08:59.5449040Z ^[[36;1mnpm run db:seed^[[0m
+Deploy API	Run production seeding	2026-06-17T21:08:59.5480531Z shell: /usr/bin/bash -e {0}
+Deploy API	Run production seeding	2026-06-17T21:08:59.5480789Z env:
+Deploy API	Run production seeding	2026-06-17T21:08:59.5481258Z   DATABASE_URL: ***
+Deploy API	Run production seeding	2026-06-17T21:08:59.5483045Z   DATABASE_AUTH_TOKEN: ***
+Deploy API	Run production seeding	2026-06-17T21:08:59.5483285Z ##[endgroup]
+Deploy API	Run production seeding	2026-06-17T21:08:59.6793634Z 
+Deploy API	Run production seeding	2026-06-17T21:08:59.6794549Z > api@1.0.0 db:seed
+Deploy API	Run production seeding	2026-06-17T21:08:59.6795094Z > tsx src/seed.ts
+Deploy API	Run production seeding	2026-06-17T21:08:59.6795356Z 
+Deploy API	Run production seeding	2026-06-17T21:09:00.1788017Z Seeding database...
+Deploy API	Run production seeding	2026-06-17T21:09:00.1788569Z Clearing existing data...
+Deploy API	Run production seeding	2026-06-17T21:09:04.4955035Z Seed complete!
+Deploy API	Setup Flyctl	﻿2026-06-17T21:09:04.5216556Z ##[group]Run superfly/flyctl-actions/setup-flyctl@master
+Deploy API	Setup Flyctl	2026-06-17T21:09:04.5216927Z with:
+Deploy API	Setup Flyctl	2026-06-17T21:09:04.5217128Z   version: latest
+Deploy API	Setup Flyctl	2026-06-17T21:09:04.5217343Z ##[endgroup]
+Deploy API	Setup Flyctl	2026-06-17T21:09:05.1832929Z Acquired 0.4.59 from https://github.com/superfly/flyctl/releases/download/v0.4.59/flyctl_0.4.59_Linux_x86_64.tar.gz
+Deploy API	Setup Flyctl	2026-06-17T21:09:05.1940141Z [command]/usr/bin/tar xz --warning=no-unknown-keyword --overwrite -C /home/runner/work/_temp/664468db-0331-4b70-8e10-c96c819f2f84 -f /home/runner/work/_temp/83aee00a-1838-4276-a6e8-10ca8d686b72
+Deploy API	Setup Flyctl	2026-06-17T21:09:05.9324114Z Successfully cached flyctl to /opt/hostedtoolcache/flyctl/0.4.59/x86_64
+Deploy API	Setup Flyctl	2026-06-17T21:09:05.9355293Z Added flyctl to the path
+Deploy API	Deploy to Fly.io	﻿2026-06-17T21:09:05.9460697Z ##[group]Run flyctl deploy --remote-only
+Deploy API	Deploy to Fly.io	2026-06-17T21:09:05.9461063Z ^[[36;1mflyctl deploy --remote-only^[[0m
+Deploy API	Deploy to Fly.io	2026-06-17T21:09:05.9492610Z shell: /usr/bin/bash -e {0}
+Deploy API	Deploy to Fly.io	2026-06-17T21:09:05.9492876Z env:
+Deploy API	Deploy to Fly.io	2026-06-17T21:09:05.9497447Z   FLY_API_TOKEN: ***
+Deploy API	Deploy to Fly.io	2026-06-17T21:09:05.9497692Z ##[endgroup]
+Deploy API	Deploy to Fly.io	2026-06-17T21:09:05.9880353Z ==> Verifying app config
+Deploy API	Deploy to Fly.io	2026-06-17T21:09:05.9881590Z Validating /home/runner/work/Bright-Abodes/Bright-Abodes/api/fly.toml
+Deploy API	Deploy to Fly.io	2026-06-17T21:09:05.9882944Z ^[[32m✓^[[0m Configuration is valid
+Deploy API	Deploy to Fly.io	2026-06-17T21:09:05.9883441Z --> Verified app config
+Deploy API	Deploy to Fly.io	2026-06-17T21:09:11.2611223Z Error: app not found (Request ID: 01KVBPN4AZEQVEAQ14D8Y40VD7-lax) (Trace ID: f3348e580e7aea54b6aab066098b2ccb)
+Deploy API	Deploy to Fly.io	2026-06-17T21:09:11.2636293Z ##[error]Process completed with exit code 1.
+Deploy API	Post Run actions/checkout@v4	﻿2026-06-17T21:09:11.2755293Z Node 20 is being deprecated. This workflow is running with Node 24 by default. If you need to temporarily use Node 20, you can set the ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION=true environment variable. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+Deploy API	Post Run actions/checkout@v4	2026-06-17T21:09:11.2756576Z Post job cleanup.
+Deploy API	Post Run actions/checkout@v4	2026-06-17T21:09:11.3557627Z [command]/usr/bin/git version
+Deploy API	Post Run actions/checkout@v4	2026-06-17T21:09:11.3595559Z git version 2.54.0
+Deploy API	Post Run actions/checkout@v4	2026-06-17T21:09:11.3633592Z Temporarily overriding HOME='/home/runner/work/_temp/c73c05c8-fa81-4217-9b52-5b6dc5f19f2b' before making global git config changes
+Deploy API	Post Run actions/checkout@v4	2026-06-17T21:09:11.3635643Z Adding repository directory to the temporary git global config as a safe directory
+Deploy API	Post Run actions/checkout@v4	2026-06-17T21:09:11.3638855Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/Bright-Abodes/Bright-Abodes
+Deploy API	Post Run actions/checkout@v4	2026-06-17T21:09:11.3674960Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+Deploy API	Post Run actions/checkout@v4	2026-06-17T21:09:11.3708021Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+Deploy API	Post Run actions/checkout@v4	2026-06-17T21:09:11.3931814Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+Deploy API	Post Run actions/checkout@v4	2026-06-17T21:09:11.3955973Z http.https://github.com/.extraheader
+Deploy API	Post Run actions/checkout@v4	2026-06-17T21:09:11.3967163Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+Deploy API	Post Run actions/checkout@v4	2026-06-17T21:09:11.3997582Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+Deploy API	Post Run actions/checkout@v4	2026-06-17T21:09:11.4211744Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+Deploy API	Post Run actions/checkout@v4	2026-06-17T21:09:11.4240467Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+Deploy API	Complete job	﻿2026-06-17T21:09:11.4581864Z Cleaning up orphan processes
+Deploy API	Complete job	2026-06-17T21:09:11.4851226Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4, actions/setup-node@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/

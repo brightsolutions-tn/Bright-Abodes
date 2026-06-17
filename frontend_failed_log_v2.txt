@@ -1,0 +1,259 @@
+deploy	Set up job	﻿2026-06-17T21:08:45.1564404Z Current runner version: '2.335.1'
+deploy	Set up job	2026-06-17T21:08:45.1592350Z ##[group]Runner Image Provisioner
+deploy	Set up job	2026-06-17T21:08:45.1593402Z Hosted Compute Agent
+deploy	Set up job	2026-06-17T21:08:45.1594042Z Version: 20260611.554
+deploy	Set up job	2026-06-17T21:08:45.1595045Z Commit: 5e0782fdc9014723d3be820dd114dd31555c2bd1
+deploy	Set up job	2026-06-17T21:08:45.1595915Z Build Date: 2026-06-11T21:40:46Z
+deploy	Set up job	2026-06-17T21:08:45.1596685Z Worker ID: {18a90657-620d-4509-ab05-e0660ccbfe53}
+deploy	Set up job	2026-06-17T21:08:45.1597504Z Azure Region: eastus
+deploy	Set up job	2026-06-17T21:08:45.1598355Z ##[endgroup]
+deploy	Set up job	2026-06-17T21:08:45.1599893Z ##[group]Operating System
+deploy	Set up job	2026-06-17T21:08:45.1600760Z Ubuntu
+deploy	Set up job	2026-06-17T21:08:45.1601350Z 24.04.4
+deploy	Set up job	2026-06-17T21:08:45.1601980Z LTS
+deploy	Set up job	2026-06-17T21:08:45.1602520Z ##[endgroup]
+deploy	Set up job	2026-06-17T21:08:45.1603190Z ##[group]Runner Image
+deploy	Set up job	2026-06-17T21:08:45.1603862Z Image: ubuntu-24.04
+deploy	Set up job	2026-06-17T21:08:45.1604477Z Version: 20260615.205.1
+deploy	Set up job	2026-06-17T21:08:45.1605667Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20260615.205/images/ubuntu/Ubuntu2404-Readme.md
+deploy	Set up job	2026-06-17T21:08:45.1607580Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20260615.205
+deploy	Set up job	2026-06-17T21:08:45.1609043Z ##[endgroup]
+deploy	Set up job	2026-06-17T21:08:45.1610416Z ##[group]GITHUB_TOKEN Permissions
+deploy	Set up job	2026-06-17T21:08:45.1612793Z Contents: read
+deploy	Set up job	2026-06-17T21:08:45.1613551Z Metadata: read
+deploy	Set up job	2026-06-17T21:08:45.1614210Z Packages: read
+deploy	Set up job	2026-06-17T21:08:45.1614778Z ##[endgroup]
+deploy	Set up job	2026-06-17T21:08:45.1617103Z Secret source: Actions
+deploy	Set up job	2026-06-17T21:08:45.1618527Z Prepare workflow directory
+deploy	Set up job	2026-06-17T21:08:45.1964811Z Prepare all required actions
+deploy	Set up job	2026-06-17T21:08:45.2003943Z Getting action download info
+deploy	Set up job	2026-06-17T21:08:45.4565611Z Download action repository 'actions/checkout@v4' (SHA:34e114876b0b11c390a56381ad16ebd13914f8d5)
+deploy	Set up job	2026-06-17T21:08:45.5580746Z Download action repository 'actions/setup-node@v4' (SHA:49933ea5288caeca8642d1e84afbd3f7d6820020)
+deploy	Set up job	2026-06-17T21:08:45.7942788Z Complete job name: deploy
+deploy	Run actions/checkout@v4	﻿2026-06-17T21:08:45.8939244Z Node 20 is being deprecated. This workflow is running with Node 24 by default. If you need to temporarily use Node 20, you can set the ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION=true environment variable. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+deploy	Run actions/checkout@v4	2026-06-17T21:08:45.8948985Z ##[group]Run actions/checkout@v4
+deploy	Run actions/checkout@v4	2026-06-17T21:08:45.8949829Z with:
+deploy	Run actions/checkout@v4	2026-06-17T21:08:45.8950377Z   repository: brightsolutions-tn/Bright-Abodes
+deploy	Run actions/checkout@v4	2026-06-17T21:08:45.8954748Z   token: ***
+deploy	Run actions/checkout@v4	2026-06-17T21:08:45.8955218Z   ssh-strict: true
+deploy	Run actions/checkout@v4	2026-06-17T21:08:45.8955674Z   ssh-user: git
+deploy	Run actions/checkout@v4	2026-06-17T21:08:45.8956143Z   persist-credentials: true
+deploy	Run actions/checkout@v4	2026-06-17T21:08:45.8956641Z   clean: true
+deploy	Run actions/checkout@v4	2026-06-17T21:08:45.8957113Z   sparse-checkout-cone-mode: true
+deploy	Run actions/checkout@v4	2026-06-17T21:08:45.8957659Z   fetch-depth: 1
+deploy	Run actions/checkout@v4	2026-06-17T21:08:45.8958317Z   fetch-tags: false
+deploy	Run actions/checkout@v4	2026-06-17T21:08:45.8958786Z   show-progress: true
+deploy	Run actions/checkout@v4	2026-06-17T21:08:45.8959265Z   lfs: false
+deploy	Run actions/checkout@v4	2026-06-17T21:08:45.8959696Z   submodules: false
+deploy	Run actions/checkout@v4	2026-06-17T21:08:45.8960234Z   set-safe-directory: true
+deploy	Run actions/checkout@v4	2026-06-17T21:08:45.8960999Z ##[endgroup]
+deploy	Run actions/checkout@v4	2026-06-17T21:08:46.0000382Z Syncing repository: brightsolutions-tn/Bright-Abodes
+deploy	Run actions/checkout@v4	2026-06-17T21:08:46.0002531Z ##[group]Getting Git version info
+deploy	Run actions/checkout@v4	2026-06-17T21:08:46.0003529Z Working directory is '/home/runner/work/Bright-Abodes/Bright-Abodes'
+deploy	Run actions/checkout@v4	2026-06-17T21:08:46.0004745Z [command]/usr/bin/git version
+deploy	Run actions/checkout@v4	2026-06-17T21:08:46.0077609Z git version 2.54.0
+deploy	Run actions/checkout@v4	2026-06-17T21:08:46.0100613Z ##[endgroup]
+deploy	Run actions/checkout@v4	2026-06-17T21:08:46.0117414Z Temporarily overriding HOME='/home/runner/work/_temp/3c256a1f-ce62-4f6d-8eaf-d1a77fa33a01' before making global git config changes
+deploy	Run actions/checkout@v4	2026-06-17T21:08:46.0120160Z Adding repository directory to the temporary git global config as a safe directory
+deploy	Run actions/checkout@v4	2026-06-17T21:08:46.0124190Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/Bright-Abodes/Bright-Abodes
+deploy	Run actions/checkout@v4	2026-06-17T21:08:46.0184525Z Deleting the contents of '/home/runner/work/Bright-Abodes/Bright-Abodes'
+deploy	Run actions/checkout@v4	2026-06-17T21:08:46.0189787Z ##[group]Initializing the repository
+deploy	Run actions/checkout@v4	2026-06-17T21:08:46.0195981Z [command]/usr/bin/git init /home/runner/work/Bright-Abodes/Bright-Abodes
+deploy	Run actions/checkout@v4	2026-06-17T21:08:46.0361975Z hint: Using 'master' as the name for the initial branch. This default branch name
+deploy	Run actions/checkout@v4	2026-06-17T21:08:46.0364485Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+deploy	Run actions/checkout@v4	2026-06-17T21:08:46.0366459Z hint: to use in all of your new repositories, which will suppress this warning,
+deploy	Run actions/checkout@v4	2026-06-17T21:08:46.0367914Z hint: call:
+deploy	Run actions/checkout@v4	2026-06-17T21:08:46.0370039Z hint:
+deploy	Run actions/checkout@v4	2026-06-17T21:08:46.0370853Z hint: 	git config --global init.defaultBranch <name>
+deploy	Run actions/checkout@v4	2026-06-17T21:08:46.0371616Z hint:
+deploy	Run actions/checkout@v4	2026-06-17T21:08:46.0372347Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+deploy	Run actions/checkout@v4	2026-06-17T21:08:46.0373497Z hint: 'development'. The just-created branch can be renamed via this command:
+deploy	Run actions/checkout@v4	2026-06-17T21:08:46.0374660Z hint:
+deploy	Run actions/checkout@v4	2026-06-17T21:08:46.0375212Z hint: 	git branch -m <name>
+deploy	Run actions/checkout@v4	2026-06-17T21:08:46.0375751Z hint:
+deploy	Run actions/checkout@v4	2026-06-17T21:08:46.0376515Z hint: Disable this message with "git config set advice.defaultBranchName false"
+deploy	Run actions/checkout@v4	2026-06-17T21:08:46.0377817Z Initialized empty Git repository in /home/runner/work/Bright-Abodes/Bright-Abodes/.git/
+deploy	Run actions/checkout@v4	2026-06-17T21:08:46.0399119Z [command]/usr/bin/git remote add origin https://github.com/brightsolutions-tn/Bright-Abodes
+deploy	Run actions/checkout@v4	2026-06-17T21:08:46.0502596Z ##[endgroup]
+deploy	Run actions/checkout@v4	2026-06-17T21:08:46.0503769Z ##[group]Disabling automatic garbage collection
+deploy	Run actions/checkout@v4	2026-06-17T21:08:46.0514155Z [command]/usr/bin/git config --local gc.auto 0
+deploy	Run actions/checkout@v4	2026-06-17T21:08:46.0591571Z ##[endgroup]
+deploy	Run actions/checkout@v4	2026-06-17T21:08:46.0592784Z ##[group]Setting up auth
+deploy	Run actions/checkout@v4	2026-06-17T21:08:46.0605559Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+deploy	Run actions/checkout@v4	2026-06-17T21:08:46.0712329Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+deploy	Run actions/checkout@v4	2026-06-17T21:08:46.1104275Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+deploy	Run actions/checkout@v4	2026-06-17T21:08:46.1139117Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+deploy	Run actions/checkout@v4	2026-06-17T21:08:46.1392594Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+deploy	Run actions/checkout@v4	2026-06-17T21:08:46.1428835Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+deploy	Run actions/checkout@v4	2026-06-17T21:08:46.1668513Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+deploy	Run actions/checkout@v4	2026-06-17T21:08:46.1708994Z ##[endgroup]
+deploy	Run actions/checkout@v4	2026-06-17T21:08:46.1710543Z ##[group]Fetching the repository
+deploy	Run actions/checkout@v4	2026-06-17T21:08:46.1718887Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +72b0322f5f8cc4f0b193d4c9110346364417afe6:refs/remotes/origin/main
+deploy	Run actions/checkout@v4	2026-06-17T21:08:46.4024113Z From https://github.com/brightsolutions-tn/Bright-Abodes
+deploy	Run actions/checkout@v4	2026-06-17T21:08:46.4025455Z  * [new ref]         72b0322f5f8cc4f0b193d4c9110346364417afe6 -> origin/main
+deploy	Run actions/checkout@v4	2026-06-17T21:08:46.4065808Z ##[endgroup]
+deploy	Run actions/checkout@v4	2026-06-17T21:08:46.4066702Z ##[group]Determining the checkout info
+deploy	Run actions/checkout@v4	2026-06-17T21:08:46.4068161Z ##[endgroup]
+deploy	Run actions/checkout@v4	2026-06-17T21:08:46.4073810Z [command]/usr/bin/git sparse-checkout disable
+deploy	Run actions/checkout@v4	2026-06-17T21:08:46.4122855Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+deploy	Run actions/checkout@v4	2026-06-17T21:08:46.4153037Z ##[group]Checking out the ref
+deploy	Run actions/checkout@v4	2026-06-17T21:08:46.4157332Z [command]/usr/bin/git checkout --progress --force -B main refs/remotes/origin/main
+deploy	Run actions/checkout@v4	2026-06-17T21:08:46.4247437Z Switched to a new branch 'main'
+deploy	Run actions/checkout@v4	2026-06-17T21:08:46.4249029Z branch 'main' set up to track 'origin/main'.
+deploy	Run actions/checkout@v4	2026-06-17T21:08:46.4257398Z ##[endgroup]
+deploy	Run actions/checkout@v4	2026-06-17T21:08:46.4304777Z [command]/usr/bin/git log -1 --format=%H
+deploy	Run actions/checkout@v4	2026-06-17T21:08:46.4330211Z 72b0322f5f8cc4f0b193d4c9110346364417afe6
+deploy	Setup Node.js	﻿2026-06-17T21:08:46.4614229Z Node 20 is being deprecated. This workflow is running with Node 24 by default. If you need to temporarily use Node 20, you can set the ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION=true environment variable. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+deploy	Setup Node.js	2026-06-17T21:08:46.4617200Z ##[group]Run actions/setup-node@v4
+deploy	Setup Node.js	2026-06-17T21:08:46.4617766Z with:
+deploy	Setup Node.js	2026-06-17T21:08:46.4618377Z   node-version: 20
+deploy	Setup Node.js	2026-06-17T21:08:46.4618845Z   always-auth: false
+deploy	Setup Node.js	2026-06-17T21:08:46.4619415Z   check-latest: false
+deploy	Setup Node.js	2026-06-17T21:08:46.4623559Z   token: ***
+deploy	Setup Node.js	2026-06-17T21:08:46.4623999Z ##[endgroup]
+deploy	Setup Node.js	2026-06-17T21:08:46.6679113Z Attempting to download 20...
+deploy	Setup Node.js	2026-06-17T21:08:46.6716178Z (node:2197) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+deploy	Setup Node.js	2026-06-17T21:08:46.6718371Z (Use `node --trace-deprecation ...` to show where the warning was created)
+deploy	Setup Node.js	2026-06-17T21:08:47.0601111Z Acquiring 20.20.2 - x64 from https://github.com/actions/node-versions/releases/download/20.20.2-23521894959/node-20.20.2-linux-x64.tar.gz
+deploy	Setup Node.js	2026-06-17T21:08:47.4241351Z Extracting ...
+deploy	Setup Node.js	2026-06-17T21:08:47.4361331Z [command]/usr/bin/tar xz --strip 1 --warning=no-unknown-keyword --overwrite -C /home/runner/work/_temp/e7213e60-3ede-415a-bfff-8cdc720955ef -f /home/runner/work/_temp/8f817a21-8234-41f1-9d2c-b4ef262ca2c3
+deploy	Setup Node.js	2026-06-17T21:08:48.4654507Z Adding to the cache ...
+deploy	Setup Node.js	2026-06-17T21:08:50.3037794Z ##[group]Environment details
+deploy	Setup Node.js	2026-06-17T21:08:50.6373878Z node: v20.20.2
+deploy	Setup Node.js	2026-06-17T21:08:50.6374595Z npm: 10.8.2
+deploy	Setup Node.js	2026-06-17T21:08:50.6375084Z yarn: 1.22.22
+deploy	Setup Node.js	2026-06-17T21:08:50.6376582Z ##[endgroup]
+deploy	Install Vercel CLI	﻿2026-06-17T21:08:50.6574549Z ##[group]Run npm install --global vercel@latest
+deploy	Install Vercel CLI	2026-06-17T21:08:50.6575182Z ^[[36;1mnpm install --global vercel@latest^[[0m
+deploy	Install Vercel CLI	2026-06-17T21:08:50.7883816Z shell: /usr/bin/bash -e {0}
+deploy	Install Vercel CLI	2026-06-17T21:08:50.7884492Z ##[endgroup]
+deploy	Install Vercel CLI	2026-06-17T21:09:03.0801196Z npm warn deprecated tar@7.5.7: Old versions of tar are not supported, and contain widely publicized security vulnerabilities, which have been fixed in the current version. Please update. Support for old versions may be purchased (at exorbitant rates) by contacting i@izs.me
+deploy	Install Vercel CLI	2026-06-17T21:09:03.7467592Z 
+deploy	Install Vercel CLI	2026-06-17T21:09:03.7468911Z added 322 packages in 13s
+deploy	Install Vercel CLI	2026-06-17T21:09:03.7469827Z 
+deploy	Install Vercel CLI	2026-06-17T21:09:03.7470392Z 41 packages are looking for funding
+deploy	Install Vercel CLI	2026-06-17T21:09:03.7471183Z   run `npm fund` for details
+deploy	Install Dependencies	﻿2026-06-17T21:09:03.7800848Z ##[group]Run npm install
+deploy	Install Dependencies	2026-06-17T21:09:03.7801329Z ^[[36;1mnpm install^[[0m
+deploy	Install Dependencies	2026-06-17T21:09:03.7845467Z shell: /usr/bin/bash -e {0}
+deploy	Install Dependencies	2026-06-17T21:09:03.7845907Z ##[endgroup]
+deploy	Install Dependencies	2026-06-17T21:09:10.1843331Z 
+deploy	Install Dependencies	2026-06-17T21:09:10.1844466Z added 230 packages, and audited 232 packages in 6s
+deploy	Install Dependencies	2026-06-17T21:09:10.1845067Z 
+deploy	Install Dependencies	2026-06-17T21:09:10.1845503Z 48 packages are looking for funding
+deploy	Install Dependencies	2026-06-17T21:09:10.1845881Z   run `npm fund` for details
+deploy	Install Dependencies	2026-06-17T21:09:10.1858188Z 
+deploy	Install Dependencies	2026-06-17T21:09:10.1858428Z found 0 vulnerabilities
+deploy	Diagnostic - Check Vercel IDs	﻿2026-06-17T21:09:10.2126034Z ##[group]Run echo "VERCEL_ORG_ID is set: true"
+deploy	Diagnostic - Check Vercel IDs	2026-06-17T21:09:10.2126470Z ^[[36;1mecho "VERCEL_ORG_ID is set: true"^[[0m
+deploy	Diagnostic - Check Vercel IDs	2026-06-17T21:09:10.2126832Z ^[[36;1mecho "VERCEL_PROJECT_ID is set: true"^[[0m
+deploy	Diagnostic - Check Vercel IDs	2026-06-17T21:09:10.2127143Z ^[[36;1mecho "VERCEL_TOKEN is set: true"^[[0m
+deploy	Diagnostic - Check Vercel IDs	2026-06-17T21:09:10.2127549Z ^[[36;1mif [ -n "$VERCEL_ORG_ID" ]; then echo "ORG_ID Length: ${#VERCEL_ORG_ID}"; fi^[[0m
+deploy	Diagnostic - Check Vercel IDs	2026-06-17T21:09:10.2128332Z ^[[36;1mif [ -n "$VERCEL_PROJECT_ID" ]; then echo "PROJECT_ID Length: ${#VERCEL_PROJECT_ID}"; fi^[[0m
+deploy	Diagnostic - Check Vercel IDs	2026-06-17T21:09:10.2128893Z ^[[36;1mif [ -n "$VERCEL_TOKEN" ]; then echo "TOKEN Length: ${#VERCEL_TOKEN}"; fi^[[0m
+deploy	Diagnostic - Check Vercel IDs	2026-06-17T21:09:10.2161081Z shell: /usr/bin/bash -e {0}
+deploy	Diagnostic - Check Vercel IDs	2026-06-17T21:09:10.2161361Z env:
+deploy	Diagnostic - Check Vercel IDs	2026-06-17T21:09:10.2161828Z   VERCEL_ORG_ID: ***
+deploy	Diagnostic - Check Vercel IDs	2026-06-17T21:09:10.2162141Z   VERCEL_PROJECT_ID: ***
+deploy	Diagnostic - Check Vercel IDs	2026-06-17T21:09:10.2162553Z   VERCEL_TOKEN: ***
+deploy	Diagnostic - Check Vercel IDs	2026-06-17T21:09:10.2162776Z ##[endgroup]
+deploy	Diagnostic - Check Vercel IDs	2026-06-17T21:09:10.2215538Z VERCEL_ORG_ID is set: true
+deploy	Diagnostic - Check Vercel IDs	2026-06-17T21:09:10.2216107Z VERCEL_PROJECT_ID is set: true
+deploy	Diagnostic - Check Vercel IDs	2026-06-17T21:09:10.2216578Z VERCEL_TOKEN is set: true
+deploy	Diagnostic - Check Vercel IDs	2026-06-17T21:09:10.2217226Z ORG_ID Length: 24
+deploy	Diagnostic - Check Vercel IDs	2026-06-17T21:09:10.2218439Z PROJECT_ID Length: 32
+deploy	Diagnostic - Check Vercel IDs	2026-06-17T21:09:10.2218894Z TOKEN Length: 60
+deploy	Pull Vercel Environment Information	﻿2026-06-17T21:09:10.2246310Z ##[group]Run vercel pull --yes --environment=production --token=*** --debug
+deploy	Pull Vercel Environment Information	2026-06-17T21:09:10.2247148Z ^[[36;1mvercel pull --yes --environment=production --token=*** --debug^[[0m
+deploy	Pull Vercel Environment Information	2026-06-17T21:09:10.2275786Z shell: /usr/bin/bash -e {0}
+deploy	Pull Vercel Environment Information	2026-06-17T21:09:10.2276066Z env:
+deploy	Pull Vercel Environment Information	2026-06-17T21:09:10.2276345Z   VERCEL_ORG_ID: ***
+deploy	Pull Vercel Environment Information	2026-06-17T21:09:10.2276651Z   VERCEL_PROJECT_ID: ***
+deploy	Pull Vercel Environment Information	2026-06-17T21:09:10.2276881Z ##[endgroup]
+deploy	Pull Vercel Environment Information	2026-06-17T21:09:10.7919582Z Vercel CLI 54.14.2 (Node.js 20.20.2)
+deploy	Pull Vercel Environment Information	2026-06-17T21:09:10.9545977Z > NOTE: The Vercel CLI now collects telemetry regarding usage of the CLI.
+deploy	Pull Vercel Environment Information	2026-06-17T21:09:10.9547283Z > This information is used to shape the CLI roadmap and prioritize features.
+deploy	Pull Vercel Environment Information	2026-06-17T21:09:10.9549304Z > You can learn more, including how to opt-out if you'd not like to participate in this program, by visiting the following URL:
+deploy	Pull Vercel Environment Information	2026-06-17T21:09:10.9550603Z > https://vercel.com/docs/cli/about-telemetry
+deploy	Pull Vercel Environment Information	2026-06-17T21:09:10.9568790Z > [debug] [2026-06-17T21:09:10.956Z] Agent/TTY/nonInteractive: isAgent=false agentName=none stdin.isTTY=undefined --non-interactive=false explicitFalse=false => nonInteractive=false
+deploy	Pull Vercel Environment Information	2026-06-17T21:09:10.9572572Z > [debug] [2026-06-17T21:09:10.957Z] user supplied known subcommand: "pull"
+deploy	Pull Vercel Environment Information	2026-06-17T21:09:11.1626899Z > [debug] [2026-06-17T21:09:11.162Z] Using token from `--token` argument, skipping token refresh.
+deploy	Pull Vercel Environment Information	2026-06-17T21:09:11.1648990Z > [debug] [2026-06-17T21:09:11.163Z] Setting target to production
+deploy	Pull Vercel Environment Information	2026-06-17T21:09:11.1966187Z > [debug] [2026-06-17T21:09:11.196Z] #1 → GET https://api.vercel.com/v2/user
+deploy	Pull Vercel Environment Information	2026-06-17T21:09:11.2239764Z > [debug] [2026-06-17T21:09:11.220Z] Spinner invoked (Retrieving project…) with a 1000ms delay
+deploy	Pull Vercel Environment Information	2026-06-17T21:09:11.2241627Z > [debug] [2026-06-17T21:09:11.222Z] #2 → GET https://api.vercel.com/v9/projects/***
+deploy	Pull Vercel Environment Information	2026-06-17T21:09:11.4134444Z > [debug] [2026-06-17T21:09:11.413Z] #1 ← 200 OK: sfo1::dr644-1781730551362-a95ea69ef3ee [217ms]
+deploy	Pull Vercel Environment Information	2026-06-17T21:09:11.4657355Z > [debug] [2026-06-17T21:09:11.465Z] #2 ← 200 OK: sfo1::l67w5-1781730551383-e4b8c376a379 [242ms]
+deploy	Pull Vercel Environment Information	2026-06-17T21:09:11.4680402Z > Downloading `production` environment variables for brightsolutions-tn/bright-abodes-web
+deploy	Pull Vercel Environment Information	2026-06-17T21:09:11.4681760Z > [debug] [2026-06-17T21:09:11.467Z] Spinner invoked (Downloading) with a 300ms delay
+deploy	Pull Vercel Environment Information	2026-06-17T21:09:11.4684173Z > [debug] [2026-06-17T21:09:11.468Z] Fetching Environment Variables of *** and target production
+deploy	Pull Vercel Environment Information	2026-06-17T21:09:11.4696887Z > [debug] [2026-06-17T21:09:11.469Z] #3 → GET https://api.vercel.com/v3/env/pull/***/production?source=vercel-cli%3Apull
+deploy	Pull Vercel Environment Information	2026-06-17T21:09:11.5716095Z > [debug] [2026-06-17T21:09:11.571Z] #3 ← 200 OK: sfo1::fq6qb-1781730551506-ca0b9075d7ad [102ms]
+deploy	Pull Vercel Environment Information	2026-06-17T21:09:11.5740583Z 
+deploy	Pull Vercel Environment Information	2026-06-17T21:09:11.5741547Z ✓ Created         .vercel/.env.production.local file
+deploy	Pull Vercel Environment Information	2026-06-17T21:09:11.5742008Z 
+deploy	Pull Vercel Environment Information	2026-06-17T21:09:11.5742278Z > Downloading project settings
+deploy	Pull Vercel Environment Information	2026-06-17T21:09:11.5749621Z Downloaded project settings to ~/work/Bright-Abodes/Bright-Abodes/web/.vercel/project.json [0ms]
+deploy	Pull Vercel Environment Information	2026-06-17T21:09:12.1503055Z > [debug] [2026-06-17T21:09:12.150Z] Vercel CLI 54.14.2 (Node.js 20.20.2)
+deploy	Pull Vercel Environment Information	2026-06-17T21:09:12.1503713Z 
+deploy	Pull Vercel Environment Information	2026-06-17T21:09:12.6899387Z > [debug] [2026-06-17T21:09:12.689Z] Telemetry event tracked
+deploy	Pull Vercel Environment Information	2026-06-17T21:09:12.8975989Z > [debug] [2026-06-17T21:09:12.897Z] Telemetry subprocess exited with code 0
+deploy	Pull Vercel Environment Information	2026-06-17T21:09:12.8988778Z > [debug] [2026-06-17T21:09:12.898Z] Spawning /opt/hostedtoolcache/node/20.20.2/x64/lib/node_modules/vercel/dist/get-latest-worker.cjs
+deploy	Pull Vercel Environment Information	2026-06-17T21:09:12.9318885Z > '[debug] [2026-06-17T21:09:12.930Z] Notifying parent we're ready
+deploy	Pull Vercel Environment Information	2026-06-17T21:09:12.9353098Z > '[debug] [2026-06-17T21:09:12.935Z] Received message from parent: {
+deploy	Pull Vercel Environment Information	2026-06-17T21:09:12.9354080Z   cacheFile: '/home/runner/.cache/com.vercel.cli/package-updates/vercel-latest.json',
+deploy	Pull Vercel Environment Information	2026-06-17T21:09:12.9354567Z   distTag: 'latest',
+deploy	Pull Vercel Environment Information	2026-06-17T21:09:12.9354895Z   name: 'vercel',
+deploy	Pull Vercel Environment Information	2026-06-17T21:09:12.9355519Z   updateCheckInterval: 86400000
+deploy	Pull Vercel Environment Information	2026-06-17T21:09:12.9355779Z }
+deploy	Pull Vercel Environment Information	2026-06-17T21:09:12.9356127Z > '[debug] [2026-06-17T21:09:12.935Z] Disconnecting from parent
+deploy	Pull Vercel Environment Information	2026-06-17T21:09:12.9369114Z > '[debug] [2026-06-17T21:09:12.936Z] Checking lock file: /home/runner/.cache/com.vercel.cli/package-updates/vercel-latest.lock
+deploy	Pull Vercel Environment Information	2026-06-17T21:09:12.9381875Z > '[debug] [2026-06-17T21:09:12.938Z] Found lock file with pid: 2374
+deploy	Pull Vercel Environment Information	2026-06-17T21:09:12.9383104Z > '[debug] [2026-06-17T21:09:12.938Z] Worker already running, exiting
+deploy	Build Project Artifacts	﻿2026-06-17T21:09:13.1546059Z ##[group]Run vercel build --prod --token=*** --debug
+deploy	Build Project Artifacts	2026-06-17T21:09:13.1546739Z ^[[36;1mvercel build --prod --token=*** --debug^[[0m
+deploy	Build Project Artifacts	2026-06-17T21:09:13.1578533Z shell: /usr/bin/bash -e {0}
+deploy	Build Project Artifacts	2026-06-17T21:09:13.1578797Z env:
+deploy	Build Project Artifacts	2026-06-17T21:09:13.1579071Z   VERCEL_ORG_ID: ***
+deploy	Build Project Artifacts	2026-06-17T21:09:13.1579371Z   VERCEL_PROJECT_ID: ***
+deploy	Build Project Artifacts	2026-06-17T21:09:13.1579612Z ##[endgroup]
+deploy	Build Project Artifacts	2026-06-17T21:09:13.7089414Z Vercel CLI 54.14.2 (Node.js 20.20.2)
+deploy	Build Project Artifacts	2026-06-17T21:09:13.7243847Z > [debug] [2026-06-17T21:09:13.723Z] Agent/TTY/nonInteractive: isAgent=false agentName=none stdin.isTTY=undefined --non-interactive=false explicitFalse=false => nonInteractive=false
+deploy	Build Project Artifacts	2026-06-17T21:09:13.7252246Z > [debug] [2026-06-17T21:09:13.724Z] user supplied known subcommand: "build"
+deploy	Build Project Artifacts	2026-06-17T21:09:13.7669019Z > [debug] [2026-06-17T21:09:13.766Z] Using token from `--token` argument, skipping token refresh.
+deploy	Build Project Artifacts	2026-06-17T21:09:13.8006240Z > [debug] [2026-06-17T21:09:13.800Z] #1 → GET https://api.vercel.com/v2/user
+deploy	Build Project Artifacts	2026-06-17T21:09:13.8041201Z > [debug] [2026-06-17T21:09:13.803Z] Setting target to production
+deploy	Build Project Artifacts	2026-06-17T21:09:13.8134834Z WARNING! Build not running on Vercel. System environment variables will not be available.
+deploy	Build Project Artifacts	2026-06-17T21:09:13.8141060Z > [debug] [2026-06-17T21:09:13.813Z] Loaded environment variables from "/home/runner/work/Bright-Abodes/Bright-Abodes/web/.vercel/.env.production.local"
+deploy	Build Project Artifacts	2026-06-17T21:09:13.9275404Z > [debug] [2026-06-17T21:09:13.927Z] Locating files /home/runner/work/Bright-Abodes/Bright-Abodes/web/web
+deploy	Build Project Artifacts	2026-06-17T21:09:13.9277506Z > [debug] [2026-06-17T21:09:13.927Z] Ignoring invalid file /home/runner/work/Bright-Abodes/Bright-Abodes/web/web
+deploy	Build Project Artifacts	2026-06-17T21:09:13.9279601Z > [debug] [2026-06-17T21:09:13.927Z] Locating files /home/runner/work/Bright-Abodes/Bright-Abodes/web/web [0ms]
+deploy	Build Project Artifacts	2026-06-17T21:09:14.2432123Z > [debug] [2026-06-17T21:09:14.242Z] Imported Builder "@vercel/static-build" from "/opt/hostedtoolcache/node/20.20.2/x64/lib/node_modules/vercel/node_modules/@vercel/static-build"
+deploy	Build Project Artifacts	2026-06-17T21:09:14.2434169Z > [debug] [2026-06-17T21:09:14.242Z] Resolved builders: "@vercel/static-build => 2.10.3"
+deploy	Build Project Artifacts	2026-06-17T21:09:14.2456648Z > [debug] [2026-06-17T21:09:14.245Z] #1 ← 200 OK: sfo1::2grlz-1781730553967-30c992df18ae [445ms]
+deploy	Build Project Artifacts	2026-06-17T21:09:14.2504620Z > [debug] [2026-06-17T21:09:14.250Z] Setting env VERCEL_PROJECT_SETTINGS_NODE_VERSION to "24.x"
+deploy	Build Project Artifacts	2026-06-17T21:09:14.2506039Z > [debug] [2026-06-17T21:09:14.250Z] Building entrypoint "package.json" with "@vercel/static-build"
+deploy	Build Project Artifacts	2026-06-17T21:09:14.2808688Z sh: 1: vite: not found
+deploy	Build Project Artifacts	2026-06-17T21:09:14.2854350Z Error: Command "vite build" exited with 127
+deploy	Build Project Artifacts	2026-06-17T21:09:14.8403550Z > [debug] [2026-06-17T21:09:14.840Z] Vercel CLI 54.14.2 (Node.js 20.20.2)
+deploy	Build Project Artifacts	2026-06-17T21:09:14.8404231Z 
+deploy	Build Project Artifacts	2026-06-17T21:09:15.1529664Z > [debug] [2026-06-17T21:09:15.152Z] Telemetry event tracked
+deploy	Build Project Artifacts	2026-06-17T21:09:15.2848230Z > [debug] [2026-06-17T21:09:15.284Z] Telemetry subprocess exited with code 0
+deploy	Build Project Artifacts	2026-06-17T21:09:15.3026499Z ##[error]Process completed with exit code 1.
+deploy	Post Run actions/checkout@v4	﻿2026-06-17T21:09:15.3187545Z Node 20 is being deprecated. This workflow is running with Node 24 by default. If you need to temporarily use Node 20, you can set the ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION=true environment variable. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+deploy	Post Run actions/checkout@v4	2026-06-17T21:09:15.3189000Z Post job cleanup.
+deploy	Post Run actions/checkout@v4	2026-06-17T21:09:15.4015981Z [command]/usr/bin/git version
+deploy	Post Run actions/checkout@v4	2026-06-17T21:09:15.4055300Z git version 2.54.0
+deploy	Post Run actions/checkout@v4	2026-06-17T21:09:15.4125588Z Temporarily overriding HOME='/home/runner/work/_temp/d73a39cc-b40c-469b-924b-0bfe1cc98510' before making global git config changes
+deploy	Post Run actions/checkout@v4	2026-06-17T21:09:15.4127161Z Adding repository directory to the temporary git global config as a safe directory
+deploy	Post Run actions/checkout@v4	2026-06-17T21:09:15.4131430Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/Bright-Abodes/Bright-Abodes
+deploy	Post Run actions/checkout@v4	2026-06-17T21:09:15.4167776Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+deploy	Post Run actions/checkout@v4	2026-06-17T21:09:15.4201801Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+deploy	Post Run actions/checkout@v4	2026-06-17T21:09:15.4427324Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+deploy	Post Run actions/checkout@v4	2026-06-17T21:09:15.4455590Z http.https://github.com/.extraheader
+deploy	Post Run actions/checkout@v4	2026-06-17T21:09:15.4468524Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+deploy	Post Run actions/checkout@v4	2026-06-17T21:09:15.4499843Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+deploy	Post Run actions/checkout@v4	2026-06-17T21:09:15.4727468Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+deploy	Post Run actions/checkout@v4	2026-06-17T21:09:15.4758270Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+deploy	Complete job	﻿2026-06-17T21:09:15.5112855Z Cleaning up orphan processes
+deploy	Complete job	2026-06-17T21:09:15.5416599Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4, actions/setup-node@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
