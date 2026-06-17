@@ -13,9 +13,16 @@ jobs:
     runs-on: ubuntu-latest
     environment: production
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
       - name: Install Vercel CLI
         run: npm install --global vercel@latest
+      - name: Install Dependencies
+        working-directory: ./web
+        run: npm install
       - name: Diagnostic - Check Vercel IDs
         run: |
           echo "VERCEL_ORG_ID is set: ${{ secrets.VERCEL_ORG_ID != '' }}"
