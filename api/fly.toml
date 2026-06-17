@@ -1,10 +1,6 @@
-# fly.toml app configuration file generated for bright-abodes-api on 2026-06-11
-
-app = "bright-abodes-api"
+app = "bright-abodes"
 primary_region = "atl"
-
 [build]
-
 [http_service]
   internal_port = 3000
   force_https = true
@@ -12,7 +8,6 @@ primary_region = "atl"
   auto_start_machines = true
   min_machines_running = 0
   processes = ["app"]
-
 [[vm]]
   memory = "512mb"
   cpu_kind = "shared"

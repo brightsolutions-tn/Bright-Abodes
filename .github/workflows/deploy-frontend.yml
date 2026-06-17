@@ -1,42 +1,35 @@
 name: Deploy Frontend to Vercel
-
 on:
   push:
     branches:
       - main
-#    paths:
-#      - 'web/**'
-#      - '.github/workflows/deploy-frontend.yml'
+    paths:
+      - 'web/**'
+      - '.github/workflows/deploy-frontend.yml'
 
 jobs:
   deploy:
+    name: deploy
     runs-on: ubuntu-latest
     environment: production
     steps:
       - uses: actions/checkout@v4
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
       - name: Install Vercel CLI
         run: npm install --global vercel@latest
-      - name: Install Dependencies
+      - name: Pull Vercel Environment Information
+        run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
         working-directory: ./web
-        run: npm install
-      - name: Diagnostic - Check Vercel IDs
-        run: |
-          echo "VERCEL_ORG_ID is set: ${{ secrets.VERCEL_ORG_ID != '' }}"
-          echo "VERCEL_PROJECT_ID is set: ${{ secrets.VERCEL_PROJECT_ID != '' }}"
-          echo "VERCEL_TOKEN is set: ${{ secrets.VERCEL_TOKEN != '' }}"
-          if [ -n "$VERCEL_ORG_ID" ]; then echo "ORG_ID Length: ${#VERCEL_ORG_ID}"; fi
-          if [ -n "$VERCEL_PROJECT_ID" ]; then echo "PROJECT_ID Length: ${#VERCEL_PROJECT_ID}"; fi
-          if [ -n "$VERCEL_TOKEN" ]; then echo "TOKEN Length: ${#VERCEL_TOKEN}"; fi
         env:
           VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
           VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
-          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
-      - name: Deploy to Vercel
-        run: vercel --prod --yes --token=${{ secrets.VERCEL_TOKEN }} --debug
+      - name: Build Project Artifacts
+        run: vercel build --prod --token=${{ secrets.VERCEL_TOKEN }}
+        working-directory: ./web
+        env:
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+      - name: Deploy Project Artifacts to Vercel
+        run: vercel deploy --prebuilt --prod --token=${{ secrets.VERCEL_TOKEN }}
         working-directory: ./web
         env:
           VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}

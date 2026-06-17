@@ -1,5 +1,4 @@
 name: Deploy Backend to Fly.io
-
 on:
   push:
     branches:
@@ -16,45 +15,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-          cache: 'npm'
-          cache-dependency-path: api/package-lock.json
-
-      - name: Install dependencies
-        working-directory: api
-        run: npm ci
-
-      - name: Run database connection check
-        working-directory: api
-        run: npm run db:check
-        env:
-          DATABASE_URL: ${{ secrets.DATABASE_URL }}
-          DATABASE_AUTH_TOKEN: ${{ secrets.DATABASE_AUTH_TOKEN }}
-
-      - name: Run database migrations
-        working-directory: api
-        run: npm run db:migrate
-        env:
-          DATABASE_URL: ${{ secrets.DATABASE_URL }}
-          DATABASE_AUTH_TOKEN: ${{ secrets.DATABASE_AUTH_TOKEN }}
-
-      - name: Run production seeding
-        working-directory: api
-        run: npm run db:seed
-        env:
-          DATABASE_URL: ${{ secrets.DATABASE_URL }}
-          DATABASE_AUTH_TOKEN: ${{ secrets.DATABASE_AUTH_TOKEN }}
-
       - name: Setup Flyctl
         uses: superfly/flyctl-actions/setup-flyctl@master
 
       - name: Deploy to Fly.io
         working-directory: api
-        run: |
-          flyctl apps create bright-abodes-api --org personal || true
-          flyctl deploy --remote-only
+        run: flyctl deploy --remote-only --app bright-abodes
         env:
           FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
