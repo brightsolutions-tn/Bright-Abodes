@@ -28,7 +28,15 @@ async function checkConnection() {
     console.log('Result:', JSON.stringify(result.rows));
   } catch (error) {
     console.error('Connection failed!');
-    console.error('Error details:', error);
+    if (error instanceof Error) {
+      console.error('Error name:', error.name);
+      console.error('Error message:', error.message);
+      console.error('Error stack:', error.stack);
+      // Log any other properties
+      console.error('Full error object:', JSON.stringify(error, Object.getOwnPropertyNames(error), 2));
+    } else {
+      console.error('Unknown error:', error);
+    }
     process.exit(1);
   }
 }
