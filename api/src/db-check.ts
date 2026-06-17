@@ -6,8 +6,8 @@ async function checkConnection() {
   console.log('DATABASE_AUTH_TOKEN is set:', !!process.env.DATABASE_AUTH_TOKEN);
 
   const client = createClient({
-    url: process.env.DATABASE_URL || '',
-    authToken: process.env.DATABASE_AUTH_TOKEN || '',
+    url: (process.env.DATABASE_URL || '').trim(),
+    authToken: process.env.DATABASE_AUTH_TOKEN?.trim() || '',
   });
 
   try {
