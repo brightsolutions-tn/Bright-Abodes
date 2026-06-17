@@ -1,5 +1,5 @@
 app = "bright-abodes"
-primary_region = "atl"
+primary_region = "dfw"
 [build]
 [http_service]
   internal_port = 3000
