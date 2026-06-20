@@ -18,6 +18,21 @@ jobs:
       - name: Setup Flyctl
         uses: superfly/flyctl-actions/setup-flyctl@master
 
+      - name: Set secrets on Fly.io
+        working-directory: api
+        run: |
+          flyctl secrets set \
+            DATABASE_URL="${{ secrets.DATABASE_URL }}" \
+            DATABASE_AUTH_TOKEN="${{ secrets.DATABASE_AUTH_TOKEN }}" \
+            CLERK_PUBLISHABLE_KEY="${{ secrets.CLERK_PUBLISHABLE_KEY }}" \
+            CLERK_SECRET_KEY="${{ secrets.CLERK_SECRET_KEY }}" \
+            MUX_TOKEN_ID="${{ secrets.MUX_TOKEN_ID }}" \
+            MUX_TOKEN_SECRET="${{ secrets.MUX_TOKEN_SECRET }}" \
+            ALLOWED_ORIGINS="${{ secrets.ALLOWED_ORIGINS }}" \
+            --app bright-abodes || true
+        env:
+          FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
+
       - name: Deploy to Fly.io
         working-directory: api
         run: flyctl deploy --remote-only --app bright-abodes
