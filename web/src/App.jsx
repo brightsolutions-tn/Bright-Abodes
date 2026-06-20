@@ -1,6 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { Routes, Route, Link, useLocation, useNavigate } from 'react-router-dom'
 import MuxPlayer from '@mux/mux-player-react'
+import PMDashboard from './pages/PMDashboard'
+import CreatorDashboard from './pages/CreatorDashboard'
+import CampaignHub from './pages/CampaignHub'
 import { 
   Search, 
   MapPin, 
@@ -1150,6 +1153,18 @@ function Profile() {
               </button>
             </div>
           </section>
+
+          {user?.role === 'manager' && (
+            <section>
+              <h3 className="font-serif font-bold text-brand-navy mb-4">Management</h3>
+              <Link 
+                to="/pm/dashboard" 
+                className="w-full bg-brand-terracotta text-white py-4 rounded-2xl font-bold flex items-center justify-center gap-2 shadow-lg shadow-brand-terracotta/20 transition-all active:scale-95"
+              >
+                <Building size={20} /> Property Manager Dashboard
+              </Link>
+            </section>
+          )}
         </div>
       )}
     </div>
@@ -1174,7 +1189,10 @@ function App() {
           <Route path="/saved" element={<Saved />} />
           <Route path="/ask" element={<Ask />} />
           <Route path="/creator/onboarding" element={<CreatorOnboarding />} />
+          <Route path="/creator/dashboard" element={<CreatorDashboard />} />
+          <Route path="/creator/campaigns" element={<CampaignHub />} />
           <Route path="/creator/wallet" element={<WalletDashboard />} />
+          <Route path="/pm/dashboard" element={<PMDashboard />} />
         </Routes>
       </main>
       {!isLanding && !isCreatorFullPage && <BottomNav />}

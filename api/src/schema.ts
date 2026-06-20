@@ -183,3 +183,36 @@ export const answersRelations = relations(answers, ({ one }) => ({
     references: [users.id],
   }),
 }));
+
+export const tourRequests = sqliteTable('tour_requests', {
+  id: text('id').primaryKey(),
+  buildingId: text('building_id').notNull().references(() => buildings.id),
+  userId: text('user_id').notNull().references(() => users.id),
+  status: text('status', { enum: ['pending', 'scheduled', 'completed', 'cancelled'] }).default('pending'),
+  requestedAt: text('requested_at').default(sql`CURRENT_TIMESTAMP`),
+});
+
+export const tourRequestsRelations = relations(tourRequests, ({ one }) => ({
+  building: one(buildings, {
+    fields: [tourRequests.buildingId],
+    references: [buildings.id],
+  }),
+  user: one(users, {
+    fields: [tourRequests.userId],
+    references: [users.id],
+  }),
+}));
+
+export const buildingViews = sqliteTable('building_views', {
+  id: text('id').primaryKey(),
+  buildingId: text('building_id').notNull().references(() => buildings.id),
+  userId: text('user_id').references(() => users.id),
+  viewedAt: text('viewed_at').default(sql`CURRENT_TIMESTAMP`),
+});
+
+export const buildingViewsRelations = relations(buildingViews, ({ one }) => ({
+  building: one(buildings, {
+    fields: [buildingViews.buildingId],
+    references: [buildings.id],
+  }),
+}));

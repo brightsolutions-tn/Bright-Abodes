@@ -6,6 +6,9 @@ import Mux from '@mux/mux-node'
 import { db } from './db'
 import * as schema from './schema'
 import { eq, and, like, desc } from 'drizzle-orm'
+import { pmRoutes } from './pm'
+import { creatorRoutes } from './creator'
+import { trustRoutes, calculateTrustScore } from './trust'
 import { v4 as uuidv4 } from 'uuid'
 
 const fastify = Fastify({
@@ -114,14 +117,20 @@ fastify.get('/api/buildings', async (request, reply) => {
     if (hubId) filters.push(eq(schema.buildings.hubId, hubId))
     if (name) filters.push(like(schema.buildings.name, `%${name}%`))
 
-    let query = db.select().from(schema.buildings)
-    if (filters.length > 0) {
+    const buildings = await db.query.buildings.findMany({
       // @ts-ignore
-      query = query.where(and(...filters))
-    }
+      where: filters.length > 0 ? and(...filters) : undefined,
+      with: {
+        reviews: true
+      }
+    })
 
-    const buildings = await query
-    return buildings
+    const buildingsWithTrust = buildings.map(b => {
+      const trustData = calculateTrustScore(b.reviews)
+      return { ...b, trustScore: trustData.score }
+    })
+
+    return buildingsWithTrust
   } catch (err) {
     fastify.log.error(err)
     return reply.code(500).send({ error: 'Failed to fetch buildings' })
@@ -155,7 +164,9 @@ fastify.get('/api/buildings/:id', async (request, reply) => {
     if (!building) {
       return reply.code(404).send({ error: 'Building not found' })
     }
-    return building
+
+    const trustData = calculateTrustScore(building.reviews)
+    return { ...building, trustIndex: trustData }
   } catch (err) {
     fastify.log.error(err)
     return reply.code(500).send({ error: 'Failed to fetch building' })
@@ -485,6 +496,18 @@ fastify.post('/api/uploads', async (request, reply) => {
   }
 })
 
+// --- PM Endpoints ---
+
+fastify.register(pmRoutes, { prefix: '/api/pm' })
+
+// --- Creator Endpoints ---
+
+fastify.register(creatorRoutes, { prefix: '/api/creator' })
+
+// --- Trust Index Endpoints ---
+
+fastify.register(trustRoutes, { prefix: '/api/trust' })
+
 // --- Health Check ---
 
 fastify.get('/api/health', async () => {
@@ -493,7 +516,7 @@ fastify.get('/api/health', async () => {
 
 const start = async () => {
   try {
-    await fastify.listen({ port: 3000, host: '0.0.0.0' })
+    await fastify.listen({ port: 8000, host: '0.0.0.0' })
   } catch (err) {
     fastify.log.error(err)
     process.exit(1)
