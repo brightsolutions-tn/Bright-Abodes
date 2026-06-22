@@ -51,6 +51,39 @@ const getOrCreateUser = async (clerkId: string) => {
 
 // --- Auth Endpoints ---
 
+// --- Affiliate Endpoints ---
+
+fastify.get('/api/buildings/:id/affiliates', async (request, reply) => {
+  const { id } = request.params as { id: string }
+  try {
+    const affiliates = await db.query.affiliateLinks.findMany({
+      where: eq(schema.affiliateLinks.buildingId, id)
+    })
+    return affiliates
+  } catch (err) {
+    fastify.log.error(err)
+    return reply.code(500).send({ error: 'Failed to fetch building affiliates' })
+  }
+})
+
+fastify.get('/api/affiliates', async (request, reply) => {
+  const { category, serviceType } = request.query as { category?: string, serviceType?: string }
+  try {
+    const filters = []
+    if (category) filters.push(eq(schema.affiliateLinks.category, category))
+    if (serviceType) filters.push(eq(schema.affiliateLinks.serviceType, serviceType))
+
+    const affiliates = await db.query.affiliateLinks.findMany({
+      // @ts-ignore
+      where: filters.length > 0 ? and(...filters) : undefined
+    })
+    return affiliates
+  } catch (err) {
+    fastify.log.error(err)
+    return reply.code(500).send({ error: 'Failed to fetch affiliates' })
+  }
+})
+
 fastify.get('/api/me', async (request, reply) => {
   const userId = hasClerkKeys ? getAuth(request).userId : 'user_2k0FvF5z4z4z4z4z4z4z4z4z4z' // Use a seeded clerkId
   
@@ -121,7 +154,8 @@ fastify.get('/api/buildings', async (request, reply) => {
       // @ts-ignore
       where: filters.length > 0 ? and(...filters) : undefined,
       with: {
-        reviews: true
+        reviews: true,
+        affiliateLinks: true
       }
     })
 

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { useNavigate, useLocation } from 'react-router-dom'
 import { 
   CheckCircle2, 
@@ -8,80 +8,55 @@ import {
   Armchair, 
   ChevronRight,
   ArrowLeft,
-  Info
+  Info,
+  ExternalLink
 } from 'lucide-react'
+
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://127.0.0.1:3000'
 
 const MoveInChecklist = () => {
   const navigate = useNavigate()
   const location = useLocation()
   const searchParams = new URLSearchParams(location.search)
-  const buildingName = searchParams.get('building') || 'The Metro Lofts'
+  const buildingId = searchParams.get('buildingId') || '9aea42d2-a73b-4129-9c3e-349f8e0fc53b' // Default to first seeded building
+  const buildingName = searchParams.get('building') || 'The Gibson'
 
-  const essentials = [
-    {
-      id: 'moving',
-      partner: 'Bellhop Moving',
-      title: 'Book Your Move',
-      description: 'Get an instant quote for your move to this building',
-      icon: Truck,
-      actionLabel: 'Get Quote',
-      color: 'bg-brand-terracotta',
-      completed: true
-    },
-    {
-      id: 'insurance',
-      partner: 'Lemonade Renters Insurance',
-      title: 'Get Covered in 90 Seconds',
-      description: 'Standard renters insurance required by management',
-      icon: ShieldCheck,
-      actionLabel: 'Learn More',
-      color: 'bg-brand-sage',
-      completed: true
-    },
-    {
-      id: 'internet',
-      partner: 'Xfinity Internet',
-      title: 'Gig-Ready Certification',
-      description: 'Pre-installed fiber connected and ready for activation',
-      icon: Wifi,
-      actionLabel: 'Check Availability',
-      color: 'bg-brand-warmGold',
-      completed: true
-    },
-    {
-      id: 'furniture',
-      partner: 'CORT Furniture Rental',
-      title: 'Shop the Tour',
-      description: 'Love the look of the resident tours? Rent the furniture.',
-      icon: Armchair,
-      actionLabel: 'Learn More',
-      color: 'bg-brand-navy',
-      completed: true
-    },
-    {
-      id: 'utilities',
-      partner: 'Nashville Electric',
-      title: 'Setup Utilities',
-      description: 'Transfer your electricity account before move-in day',
-      icon: Info,
-      actionLabel: 'Setup Now',
-      color: 'bg-brand-stone',
-      completed: false
-    },
-    {
-      id: 'parking',
-      partner: 'Resident Parking',
-      title: 'Register Vehicle',
-      description: 'Secure your spot in the controlled access garage',
-      icon: Info,
-      actionLabel: 'Register',
-      color: 'bg-brand-stone',
-      completed: false
-    }
+  const [affiliates, setAffiliates] = useState([])
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    fetch(`${API_BASE_URL}/api/buildings/${buildingId}/affiliates`)
+      .then(res => res.json())
+      .then(data => {
+        setAffiliates(data)
+        setLoading(false)
+      })
+      .catch(err => {
+        console.error('Failed to fetch affiliates:', err)
+        setLoading(false)
+      })
+  }, [buildingId])
+
+  const categories = [
+    { id: 'moving', label: 'Moving', icon: Truck },
+    { id: 'insurance', label: 'Insurance', icon: ShieldCheck },
+    { id: 'internet', label: 'Internet', icon: Wifi },
+    { id: 'furniture', label: 'Furniture', icon: Armchair },
   ]
 
-  const completedCount = essentials.filter(e => e.completed).length
-  const progressPercent = (completedCount / essentials.length) * 100
+  const getPartnersForCategory = (catId) => {
+    return affiliates.filter(a => a.category === catId || a.serviceType === catId)
+  }
+
+  const completedCount = 4 // Mock completed state for now
+  const totalCount = categories.length
+  const progressPercent = (completedCount / totalCount) * 100
+
+  if (loading) return (
+    <div className="min-h-screen bg-brand-warmIvory flex items-center justify-center p-12">
+      <div className="w-8 h-8 border-4 border-brand-terracotta border-t-transparent rounded-full animate-spin"></div>
+    </div>
+  )
 
   return (
     <div className="min-h-screen bg-brand-warmIvory pb-24">
@@ -97,7 +72,7 @@ const MoveInChecklist = () => {
           <h1 className="text-4xl font-serif font-bold text-brand-navy mb-4 leading-tight">Move-In Essentials</h1>
           <p className="text-brand-stone text-sm mb-6">Your {buildingName} checklist</p>
           <div className="w-full max-w-xs mx-auto">
-            <p className="text-[10px] font-bold text-brand-navy uppercase tracking-widest mb-2">{completedCount} of {essentials.length} essentials completed</p>
+            <p className="text-[10px] font-bold text-brand-navy uppercase tracking-widest mb-2">{completedCount} of {totalCount} categories explored</p>
             <div className="h-1 bg-brand-warmGray/30 rounded-full overflow-hidden">
               <div 
                 className="h-full bg-brand-sage transition-all duration-1000 ease-out" 
@@ -107,29 +82,45 @@ const MoveInChecklist = () => {
           </div>
         </div>
 
-        <div className="space-y-6">
-          {essentials.map((item) => (
-            <div key={item.id} className="bg-white rounded-[1.5rem] p-6 shadow-sm border border-brand-warmGray relative group hover:shadow-md transition-all">
-              <div className="flex gap-6 items-start mb-6">
-                <div className="text-brand-navy pt-1">
-                  <item.icon size={32} strokeWidth={1.5} />
+        <div className="space-y-8">
+          {categories.map((cat) => {
+            const partners = getPartnersForCategory(cat.id)
+            return (
+              <div key={cat.id} className="space-y-4">
+                <div className="flex items-center gap-2 mb-2 px-2">
+                  <cat.icon size={18} className="text-brand-navy" />
+                  <h2 className="font-bold text-brand-navy uppercase tracking-widest text-xs">{cat.label}</h2>
                 </div>
-                <div className="flex-1">
-                  <p className="text-[11px] font-bold text-brand-stone uppercase tracking-widest mb-1">{item.partner}</p>
-                  <h3 className="font-serif font-bold text-2xl text-brand-navy leading-tight">{item.title}</h3>
-                </div>
+                
+                {partners.length > 0 ? (
+                  <div className="space-y-4">
+                    {partners.map(partner => (
+                      <div key={partner.id} className="bg-white rounded-[1.5rem] p-6 shadow-sm border border-brand-warmGray relative group hover:shadow-md transition-all">
+                        <div className="flex justify-between items-start mb-2">
+                          <h3 className="font-serif font-bold text-2xl text-brand-navy leading-tight">{partner.name}</h3>
+                          <ExternalLink size={16} className="text-brand-stone opacity-50" />
+                        </div>
+                        <p className="text-sm text-brand-stone leading-relaxed mb-6">{partner.description}</p>
+                        
+                        <a 
+                          href={partner.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="w-full py-4 rounded-2xl font-bold uppercase tracking-widest text-xs transition-all active:scale-95 flex items-center justify-center gap-2 bg-brand-terracotta text-white shadow-lg shadow-brand-terracotta/20 hover:bg-brand-terracotta/90"
+                        >
+                          Explore Offer
+                        </a>
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <div className="bg-white/50 border border-brand-warmGray border-dashed rounded-[1.5rem] p-8 text-center">
+                    <p className="text-xs text-brand-stone italic">No specific {cat.label.toLowerCase()} partners for this building yet.</p>
+                  </div>
+                )}
               </div>
-              <p className="text-sm text-brand-stone leading-relaxed mb-6">{item.description}</p>
-              
-              <button className={`w-full py-4 rounded-2xl font-bold uppercase tracking-widest text-xs transition-all active:scale-95 flex items-center justify-center gap-2 ${
-                item.id === 'internet' ? 'bg-brand-champagne text-brand-navy' :
-                item.id === 'insurance' ? 'bg-brand-sage text-white' :
-                'bg-brand-terracotta text-white shadow-lg shadow-brand-terracotta/20'
-              }`}>
-                {item.actionLabel}
-              </button>
-            </div>
-          ))}
+            )
+          })}
         </div>
 
         <div className="mt-12 bg-brand-navy rounded-[2.5rem] p-8 text-white relative overflow-hidden shadow-2xl">

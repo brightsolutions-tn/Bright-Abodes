@@ -330,8 +330,13 @@ const BuildingCard = ({ building }) => {
   // Use real trustScore if available, otherwise mock
   const trustScore = building.trustScore || Math.floor(Math.random() * (98 - 40) + 40)
   
-  // Mock data for "Gig-Ready" feature
-  const isGigReady = true 
+  // Dynamic data for "Gig-Ready" and "Moving" features
+  const internetPartners = (building.affiliateLinks || []).filter(a => a.category === 'internet' || a.serviceType === 'internet')
+  const movingPartners = (building.affiliateLinks || []).filter(a => a.category === 'moving' || a.serviceType === 'moving')
+  
+  const isGigReady = internetPartners.length > 0
+  const primaryInternet = internetPartners[0]
+  const primaryMoving = movingPartners[0]
 
   const handleSave = async (e) => {
     e.stopPropagation()
@@ -372,7 +377,7 @@ const BuildingCard = ({ building }) => {
             </div>
             <div>
               <p className="text-[10px] font-bold uppercase tracking-wider">Gig-Ready</p>
-              <p className="text-[8px] text-brand-stone font-medium uppercase tracking-widest">Xfinity Fiber Connected</p>
+              <p className="text-[8px] text-brand-stone font-medium uppercase tracking-widest">{primaryInternet?.name || 'Fiber Connected'}</p>
             </div>
           </div>
         )}
@@ -383,7 +388,7 @@ const BuildingCard = ({ building }) => {
           <MapPin size={14} /> {building.city}, {building.state}
         </p>
         
-        {saved && (
+        {saved && primaryMoving && (
           <div className="mb-4 p-4 bg-brand-warmIvory rounded-[1.5rem] border border-brand-warmGray flex flex-col gap-4 animate-in zoom-in-95 duration-300">
             <div className="flex items-center gap-4">
               <div className="bg-brand-terracotta/10 p-2 rounded-xl text-brand-terracotta">
@@ -391,13 +396,13 @@ const BuildingCard = ({ building }) => {
               </div>
               <div className="flex-1">
                 <p className="text-[11px] font-bold text-brand-navy uppercase tracking-wider">Planning your move?</p>
-                <p className="text-[9px] text-brand-stone font-medium">Get an instant moving quote</p>
+                <p className="text-[9px] text-brand-stone font-medium">{primaryMoving.name}: {primaryMoving.description || 'Get an instant quote'}</p>
               </div>
             </div>
             <button 
               onClick={(e) => {
                 e.stopPropagation()
-                navigate(`/move-in-checklist?building=${encodeURIComponent(building.name)}`)
+                navigate(`/move-in-checklist?buildingId=${building.id}&building=${encodeURIComponent(building.name)}`)
               }}
               className="w-full bg-brand-terracotta text-white py-3 rounded-xl font-bold text-[11px] uppercase tracking-widest shadow-lg shadow-brand-terracotta/20 hover:scale-[1.02] transition-all"
             >
