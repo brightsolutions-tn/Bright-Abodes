@@ -5,6 +5,8 @@ import PMDashboard from './pages/PMDashboard'
 import CreatorDashboard from './pages/CreatorDashboard'
 import CampaignHub from './pages/CampaignHub'
 import MoveInChecklist from './pages/MoveInChecklist'
+import CreatorLanding from './pages/CreatorLanding'
+import CreatorOnboarding from './pages/CreatorOnboarding'
 import TrustBadge from './components/TrustBadge'
 import { 
   Search, 
@@ -26,169 +28,14 @@ import {
   Wifi,
   Truck,
   ClipboardCheck,
-  Crown
+  Crown,
+  Plus
   } from 'lucide-react'
 
 // --- Components ---
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://127.0.0.1:3000'
 
-function CreatorOnboarding() {
-  const navigate = useNavigate()
-  const [step, setStep] = useState(1)
-  const [formData, setFormData] = useState({
-    name: 'Alex Jordan',
-    username: 'alexjordan',
-    bio: 'A creator sharing the beauty of everyday life',
-    city: 'Nashville',
-    socialHandle: '',
-    videoLink: ''
-  })
-
-  const nextStep = () => setStep(step + 1)
-
-  return (
-    <div className="min-h-screen bg-brand-warmIvory p-6 pt-12 max-w-md mx-auto flex flex-col">
-      <header className="mb-12 text-center">
-        <div className="flex items-center justify-center gap-2 mb-2">
-          <div className="bg-brand-terracotta p-1 rounded-lg">
-            <Building className="text-white" size={20} />
-          </div>
-          <h2 className="text-brand-navy font-serif font-bold text-xl tracking-tight uppercase">Bright Abodes</h2>
-        </div>
-        <p className="text-brand-stone text-xs italic">See the real story.</p>
-      </header>
-
-      <div className="mb-12">
-        <p className="text-center text-[10px] font-bold text-brand-navy mb-6 uppercase tracking-[0.3em]">Step {step} of 4</p>
-        <div className="flex items-center justify-center gap-4">
-          {[1, 2, 3, 4].map((s) => (
-             <React.Fragment key={s}>
-               <div className={`w-8 h-8 rounded-full flex items-center justify-center transition-all duration-500 ${
-                 step >= s ? 'bg-brand-terracotta text-white shadow-lg shadow-brand-terracotta/20' : 'bg-brand-warmGray text-brand-stone'
-               }`}>
-                 {step > s ? <CheckCircle2 size={16} /> : <span className="text-xs font-bold">{s}</span>}
-               </div>
-               {s < 4 && <div className={`h-0.5 w-8 transition-all duration-500 ${step > s ? 'bg-brand-terracotta' : 'bg-brand-warmGray'}`}></div>}
-             </React.Fragment>
-          ))}
-        </div>
-      </div>
-
-      <div className="flex-1 flex flex-col justify-center animate-in fade-in slide-in-from-bottom-4 duration-700">
-        {step === 1 && (
-          <div className="text-center">
-            <h1 className="text-4xl font-serif font-bold text-brand-navy mb-6">Nashville is going "Bright."</h1>
-            <p className="text-brand-stone leading-relaxed mb-12">
-              Your city has a story, and you’re the best person to tell it. We’re looking for "Founding Creators" to be the visual heartbeat of the local renter community.
-            </p>
-            <button 
-              onClick={nextStep}
-              className="w-full bg-brand-terracotta text-white py-5 rounded-3xl font-bold uppercase tracking-widest shadow-xl shadow-brand-terracotta/20 active:scale-95 transition-all"
-            >
-              Let’s Get Started
-            </button>
-          </div>
-        )}
-
-        {step === 2 && (
-          <div>
-            <h1 className="text-4xl font-serif font-bold text-brand-navy mb-6">Real Voice. Real Rewards.</h1>
-            <div className="space-y-6 mb-12">
-              <div className="bg-white p-6 rounded-2xl border border-brand-warmGray shadow-sm">
-                <h3 className="font-serif font-bold text-brand-navy mb-1 flex items-center gap-2">
-                   <div className="w-2 h-2 bg-brand-sage rounded-full"></div> Monthly Stipends
-                </h3>
-                <p className="text-xs text-brand-stone">Get paid to tour the buildings you love (or the ones you want to see).</p>
-              </div>
-              <div className="bg-white p-6 rounded-2xl border border-brand-warmGray shadow-sm">
-                <h3 className="font-serif font-bold text-brand-navy mb-1 flex items-center gap-2">
-                   <div className="w-2 h-2 bg-brand-sage rounded-full"></div> Affiliate Commissions
-                </h3>
-                <p className="text-xs text-brand-stone">Earn for every qualified lead your content generates.</p>
-              </div>
-              <div className="bg-white p-6 rounded-2xl border border-brand-warmGray shadow-sm">
-                <h3 className="font-serif font-bold text-brand-navy mb-1 flex items-center gap-2">
-                   <div className="w-2 h-2 bg-brand-sage rounded-full"></div> Founding Badge
-                </h3>
-                <p className="text-xs text-brand-stone">Exclusive verification status and priority in the discovery feed.</p>
-              </div>
-            </div>
-            <button 
-              onClick={nextStep}
-              className="w-full bg-brand-terracotta text-white py-5 rounded-3xl font-bold uppercase tracking-widest shadow-xl shadow-brand-terracotta/20 active:scale-95 transition-all"
-            >
-              Sounds Good
-            </button>
-          </div>
-        )}
-
-        {step === 3 && (
-          <div>
-            <h1 className="text-4xl font-serif font-bold text-brand-navy mb-6">Let’s make it official.</h1>
-            <p className="text-brand-stone text-sm mb-10 leading-relaxed">
-              To keep our community trusted, we need to verify your local status. Link your socials and show us your storytelling style.
-            </p>
-            
-            <div className="space-y-6 mb-12">
-              <div>
-                <label className="block text-[10px] font-bold text-brand-navy mb-2 ml-1 uppercase tracking-widest">Social Handle (TikTok/IG)</label>
-                <input 
-                  type="text" 
-                  placeholder="@yourhandle"
-                  className="w-full bg-white border border-brand-warmGray rounded-2xl py-4 px-6 text-brand-navy focus:outline-none focus:ring-2 focus:ring-brand-terracotta/20 focus:border-brand-terracotta transition-all shadow-sm"
-                  onChange={(e) => setFormData({...formData, socialHandle: e.target.value})}
-                />
-              </div>
-              <div>
-                <label className="block text-[10px] font-bold text-brand-navy mb-2 ml-1 uppercase tracking-widest">City</label>
-                <input 
-                  type="text" 
-                  defaultValue="Nashville"
-                  className="w-full bg-white border border-brand-warmGray rounded-2xl py-4 px-6 text-brand-navy focus:outline-none focus:ring-2 focus:ring-brand-terracotta/20 focus:border-brand-terracotta transition-all shadow-sm"
-                />
-              </div>
-              <div>
-                <label className="block text-[10px] font-bold text-brand-navy mb-2 ml-1 uppercase tracking-widest">Link to a recent tour</label>
-                <input 
-                  type="text" 
-                  placeholder="https://tiktok.com/..."
-                  className="w-full bg-white border border-brand-warmGray rounded-2xl py-4 px-6 text-brand-navy focus:outline-none focus:ring-2 focus:ring-brand-terracotta/20 focus:border-brand-terracotta transition-all shadow-sm"
-                  onChange={(e) => setFormData({...formData, videoLink: e.target.value})}
-                />
-              </div>
-            </div>
-
-            <button 
-              onClick={nextStep}
-              className="w-full bg-brand-terracotta text-white py-5 rounded-3xl font-bold uppercase tracking-widest shadow-xl shadow-brand-terracotta/20 active:scale-95 transition-all"
-            >
-              Submit Application
-            </button>
-          </div>
-        )}
-
-        {step === 4 && (
-          <div className="text-center">
-            <div className="w-24 h-24 bg-brand-sage/20 text-brand-sage rounded-full flex items-center justify-center mx-auto mb-8 shadow-inner">
-               <CheckCircle2 size={48} />
-            </div>
-            <h1 className="text-4xl font-serif font-bold text-brand-navy mb-6">You’re in. Welcome to the Community.</h1>
-            <p className="text-brand-stone leading-relaxed mb-12">
-              You’re now a <span className="text-brand-sage font-bold">Bright Abodes Verified Creator</span>. Your mission? Show the world what it’s <span className="italic">really</span> like to live in {formData.city}.
-            </p>
-            <button 
-              onClick={() => navigate('/profile')}
-              className="w-full bg-brand-terracotta text-white py-5 rounded-3xl font-bold uppercase tracking-widest shadow-xl shadow-brand-terracotta/20 active:scale-95 transition-all"
-            >
-              Start Your First Tour
-            </button>
-          </div>
-        )}
-      </div>
-    </div>
-  )
-}
 
 function WalletDashboard() {
   const navigate = useNavigate()
@@ -290,6 +137,7 @@ const Navbar = () => {
 
 const BottomNav = () => {
   const location = useLocation()
+  const navigate = useNavigate()
   
   const navItems = [
     { icon: Compass, label: 'Discover', path: '/discover' },
@@ -301,7 +149,31 @@ const BottomNav = () => {
 
   return (
     <nav className="fixed bottom-0 left-0 right-0 bg-white border-t border-brand-warmGray px-2 py-2 flex justify-around items-center z-50 pb-safe-area shadow-[0_-4px_20px_rgba(0,0,0,0.03)]">
-      {navItems.map((item) => {
+      {navItems.slice(0, 2).map((item) => {
+        const isActive = location.pathname === item.path
+        return (
+          <Link 
+            key={item.label} 
+            to={item.path}
+            className={`flex flex-col items-center gap-1 min-w-[64px] transition-all ${isActive ? 'text-brand-terracotta' : 'text-brand-stone'}`}
+          >
+            <div className={`p-1 rounded-xl transition-all ${isActive ? 'bg-brand-terracotta/10' : 'hover:bg-brand-warmGray/10'}`}>
+              <item.icon size={24} strokeWidth={isActive ? 2.5 : 2} />
+            </div>
+            <span className="text-[10px] font-bold uppercase tracking-widest">{item.label}</span>
+          </Link>
+        )
+      })}
+
+      {/* Prominent Plus Button */}
+      <button 
+        onClick={() => navigate('/profile')}
+        className="relative -top-4 bg-brand-terracotta text-white p-4 rounded-2xl shadow-xl shadow-brand-terracotta/40 active:scale-95 transition-all group"
+      >
+        <Plus size={28} strokeWidth={3} className="group-hover:rotate-90 transition-transform duration-300" />
+      </button>
+
+      {navItems.slice(2).map((item) => {
         const isActive = location.pathname === item.path
         return (
           <Link 
@@ -463,6 +335,7 @@ const MapPlaceholder = ({ buildings }) => {
 const CinematicPlayer = ({ review, isActive }) => {
   const [liked, setLike] = useState(false)
   const [saved, setSaved] = useState(false)
+  const [showToast, setShowToast] = useState(false)
   
   const handleSave = async () => {
     setSaved(!saved)
@@ -477,8 +350,41 @@ const CinematicPlayer = ({ review, isActive }) => {
     }
   }
 
+  const handleShare = async () => {
+    const shareData = {
+      title: review.title,
+      text: `Check out this tour of ${review.building?.name} on Bright Abodes!`,
+      url: `${window.location.origin}/feed?buildingId=${review.buildingId}&reviewId=${review.id}`,
+    }
+
+    if (navigator.share) {
+      try {
+        await navigator.share(shareData)
+      } catch (err) {
+        console.log('Share cancelled or failed:', err)
+      }
+    } else {
+      try {
+        await navigator.clipboard.writeText(shareData.url)
+        setShowToast(true)
+        setTimeout(() => setShowToast(false), 3000)
+      } catch (err) {
+        console.error('Failed to copy:', err)
+      }
+    }
+  }
+
   return (
     <div className="relative h-screen w-full bg-black snap-start overflow-hidden flex flex-col justify-center">
+      {/* Toast Notification */}
+      {showToast && (
+        <div className="absolute top-24 left-1/2 -translate-x-1/2 z-[100] bg-brand-navy/90 backdrop-blur-md text-white px-6 py-3 rounded-2xl border border-white/20 shadow-2xl animate-in fade-in slide-in-from-top-4 duration-300">
+          <p className="text-sm font-bold flex items-center gap-2">
+            <ClipboardCheck size={16} className="text-brand-champagne" /> Link copied to clipboard
+          </p>
+        </div>
+      )}
+
       <MuxPlayer
         playbackId={review.videoPlaybackId}
         metadataVideoTitle={review.title}
@@ -564,7 +470,10 @@ const CinematicPlayer = ({ review, isActive }) => {
               <span className="text-white text-[10px] font-bold">{saved ? 'Saved' : 'Save'}</span>
             </button>
 
-            <button className="flex flex-col items-center gap-1 group text-white">
+            <button 
+              onClick={handleShare}
+              className="flex flex-col items-center gap-1 group text-white"
+            >
               <div className="p-3 rounded-full bg-white/10 backdrop-blur-md group-hover:bg-white/20 transition-all">
                 <Share2 size={24} />
               </div>
@@ -756,8 +665,18 @@ function LandingPage() {
             Be part of the most informed renter community in the South. Share your story, earn rewards.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center relative z-10">
-            <button className="bg-brand-terracotta text-white py-5 px-12 rounded-2xl font-bold text-sm uppercase tracking-widest shadow-xl shadow-brand-terracotta/20 hover:scale-105 transition-all">Get Started</button>
-            <button className="bg-white/10 backdrop-blur-md text-white py-5 px-12 rounded-2xl font-bold text-sm uppercase tracking-widest border border-white/20 hover:bg-white/20 transition-all">Learn More</button>
+            <button 
+              onClick={() => navigate('/discover')}
+              className="bg-brand-terracotta text-white py-5 px-12 rounded-2xl font-bold text-sm uppercase tracking-widest shadow-xl shadow-brand-terracotta/20 hover:scale-105 transition-all"
+            >
+              Get Started
+            </button>
+            <button 
+              onClick={() => navigate('/partner-inquiry')}
+              className="bg-white/10 backdrop-blur-md text-white py-5 px-12 rounded-2xl font-bold text-sm uppercase tracking-widest border border-white/20 hover:bg-white/20 transition-all"
+            >
+              Partner with Us
+            </button>
           </div>
         </div>
       </section>
@@ -772,10 +691,10 @@ function LandingPage() {
         </div>
         <p className="text-brand-stone text-sm mb-12 max-w-xs mx-auto leading-relaxed italic">"See the real story. Live the good life."</p>
         <div className="flex flex-wrap justify-center gap-8 mb-12">
-          <a href="#" className="text-[10px] uppercase tracking-[0.3em] font-bold text-brand-navy hover:text-brand-terracotta transition-colors">Privacy</a>
-          <a href="#" className="text-[10px] uppercase tracking-[0.3em] font-bold text-brand-navy hover:text-brand-terracotta transition-colors">Terms</a>
-          <a href="#" className="text-[10px] uppercase tracking-[0.3em] font-bold text-brand-navy hover:text-brand-terracotta transition-colors">Contact</a>
-          <a href="#" className="text-[10px] uppercase tracking-[0.3em] font-bold text-brand-navy hover:text-brand-terracotta transition-colors">Creators</a>
+          <Link to="/" className="text-[10px] uppercase tracking-[0.3em] font-bold text-brand-navy hover:text-brand-terracotta transition-colors">Privacy</Link>
+          <Link to="/" className="text-[10px] uppercase tracking-[0.3em] font-bold text-brand-navy hover:text-brand-terracotta transition-colors">Terms</Link>
+          <Link to="/partner-inquiry" className="text-[10px] uppercase tracking-[0.3em] font-bold text-brand-navy hover:text-brand-terracotta transition-colors">Partners</Link>
+          <Link to="/creator" className="text-[10px] uppercase tracking-[0.3em] font-bold text-brand-navy hover:text-brand-terracotta transition-colors">Creators</Link>
         </div>
         <p className="text-[10px] text-brand-stone uppercase tracking-widest font-medium">© 2026 Bright Abodes. Nashville, TN.</p>
       </footer>
@@ -1058,13 +977,28 @@ function Feed() {
       : `${API_BASE_URL}/api/reviews`
 
     fetch(url)
-      .then(res => {
-        console.log('FETCH RES:', res.status)
-        return res.json()
-      })
+      .then(res => res.json())
       .then(data => {
-        console.log('FETCH DATA:', data)
-        setReviews(Array.isArray(data) ? data : [])
+        const reviewsData = Array.isArray(data) ? data : []
+        setReviews(reviewsData)
+        
+        // Handle deep-linking to a specific review
+        const reviewId = searchParams.get('reviewId')
+        if (reviewId && reviewsData.length > 0) {
+          const index = reviewsData.findIndex(r => r.id === reviewId)
+          if (index !== -1) {
+            setActiveIndex(index)
+            // Scroll to that index after a short delay to let rendering finish
+            setTimeout(() => {
+              if (feedRef.current) {
+                feedRef.current.scrollTo({
+                  top: index * feedRef.current.clientHeight,
+                  behavior: 'smooth'
+                })
+              }
+            }, 100)
+          }
+        }
         setLoading(false)
       })
       .catch(err => {
@@ -1142,9 +1076,13 @@ function Feed() {
   )
 }
 
+import VideoUpload from './components/VideoUpload'
+
 function Profile() {
   const [user, setUser] = useState(null)
   const [loading, setLoading] = useState(true)
+  const [showUpload, setShowUpload] = useState(false)
+  const navigate = useNavigate()
 
   useEffect(() => {
     fetch(`${API_BASE_URL}/api/me`)
@@ -1160,6 +1098,8 @@ function Profile() {
   }, [])
 
   if (loading) return <div className="p-8 text-center pt-24 font-serif italic text-brand-stone">Loading profile...</div>
+
+  const isVerified = user?.role === 'creator' || user?.role === 'manager' || user?.role === 'admin'
 
   return (
     <div className="p-4 pb-24 max-w-md mx-auto min-h-screen">
@@ -1177,37 +1117,54 @@ function Profile() {
 
       {user?.id && (
         <div className="space-y-6">
-          <section className="bg-brand-navy text-white p-6 rounded-3xl shadow-xl shadow-brand-navy/20 relative overflow-hidden">
-            <div className="absolute -top-12 -right-12 w-32 h-32 bg-brand-terracotta/20 rounded-full blur-3xl"></div>
-            <div className="flex justify-between items-center mb-6">
-              <h3 className="font-serif font-bold text-lg flex items-center gap-2">
-                <LayoutGrid size={20} className="text-brand-terracotta" /> Creator Dashboard
-              </h3>
-              <button 
-                onClick={() => navigate('/creator/wallet')}
-                className="p-2 bg-white/10 hover:bg-white/20 rounded-full transition-all"
-              >
-                <Wallet size={20} className="text-brand-champagne" />
-              </button>
+          {showUpload ? (
+            <div className="bg-white p-6 rounded-3xl border border-brand-terracotta/20 shadow-xl animate-in zoom-in-95 duration-300">
+              <div className="flex justify-between items-center mb-6">
+                <h3 className="font-serif font-bold text-xl">Share Your Story</h3>
+                <button onClick={() => setShowUpload(false)} className="p-2 hover:bg-brand-warmIvory rounded-full transition-all">
+                  <X size={20} />
+                </button>
+              </div>
+              <VideoUpload onUploadSuccess={() => setShowUpload(false)} />
             </div>
-            <div className="grid grid-cols-3 gap-4 text-center">
-              <div>
-                <p className="text-2xl font-bold">12</p>
-                <p className="text-[10px] uppercase tracking-widest text-brand-warmGray">Tours</p>
+          ) : (
+            <section className="bg-brand-navy text-white p-6 rounded-3xl shadow-xl shadow-brand-navy/20 relative overflow-hidden">
+              <div className="absolute -top-12 -right-12 w-32 h-32 bg-brand-terracotta/20 rounded-full blur-3xl"></div>
+              <div className="flex justify-between items-center mb-6">
+                <h3 className="font-serif font-bold text-lg flex items-center gap-2">
+                  <LayoutGrid size={20} className="text-brand-terracotta" /> Creator Dashboard
+                </h3>
+                <button 
+                  onClick={() => navigate('/creator/wallet')}
+                  className="p-2 bg-white/10 hover:bg-white/20 rounded-full transition-all"
+                >
+                  <Wallet size={20} className="text-brand-champagne" />
+                </button>
               </div>
-              <div>
-                <p className="text-2xl font-bold">1.2k</p>
-                <p className="text-[10px] uppercase tracking-widest text-brand-warmGray">Views</p>
+              <div className="grid grid-cols-3 gap-4 text-center">
+                <div>
+                  <p className="text-2xl font-bold">12</p>
+                  <p className="text-[10px] uppercase tracking-widest text-brand-warmGray">Tours</p>
+                </div>
+                <div>
+                  <p className="text-2xl font-bold">1.2k</p>
+                  <p className="text-[10px] uppercase tracking-widest text-brand-warmGray">Views</p>
+                </div>
+                <div>
+                  <p className="text-2xl font-bold">480</p>
+                  <p className="text-[10px] uppercase tracking-widest text-brand-warmGray">Likes</p>
+                </div>
               </div>
-              <div>
-                <p className="text-2xl font-bold">480</p>
-                <p className="text-[10px] uppercase tracking-widest text-brand-warmGray">Likes</p>
-              </div>
-            </div>
-            <button className="w-full mt-6 bg-brand-terracotta text-white py-3 rounded-xl font-bold text-xs uppercase tracking-widest shadow-lg shadow-brand-terracotta/20">
-              Upload New Tour
-            </button>
-          </section>
+              {isVerified && (
+                <button 
+                  onClick={() => setShowUpload(true)}
+                  className="w-full mt-6 bg-brand-terracotta text-white py-3 rounded-xl font-bold text-xs uppercase tracking-widest shadow-lg shadow-brand-terracotta/20"
+                >
+                  Upload New Tour
+                </button>
+              )}
+            </section>
+          )}
 
           <section>
             <h3 className="font-serif font-bold text-brand-navy mb-4">Account Settings</h3>
@@ -1262,15 +1219,19 @@ function Profile() {
   )
 }
 
+import PartnerInquiry from './pages/PartnerInquiry'
+
 function App() {
   const location = useLocation()
   const isFeed = location.pathname === '/feed'
   const isLanding = location.pathname === '/'
-  const isCreatorFullPage = location.pathname.startsWith('/creator/')
+  const isCreatorFullPage = location.pathname.startsWith('/creator')
+  const isSharedChecklist = location.pathname.startsWith('/checklist/share')
+  const isPartnerPortal = location.pathname === '/partner-inquiry'
 
   return (
     <div className="min-h-screen bg-brand-warmIvory text-brand-navy font-sans overflow-x-hidden">
-      {!isFeed && !isLanding && !isCreatorFullPage && <Navbar />}
+      {!isFeed && !isLanding && !isCreatorFullPage && !isSharedChecklist && !isPartnerPortal && <Navbar />}
       <main>
         <Routes>
           <Route path="/" element={<LandingPage />} />
@@ -1280,14 +1241,17 @@ function App() {
           <Route path="/saved" element={<Saved />} />
           <Route path="/ask" element={<Ask />} />
           <Route path="/move-in-checklist" element={<MoveInChecklist />} />
+          <Route path="/checklist/share/:shareId" element={<MoveInChecklist isReadOnly={true} />} />
+          <Route path="/creator" element={<CreatorLanding />} />
           <Route path="/creator/onboarding" element={<CreatorOnboarding />} />
           <Route path="/creator/dashboard" element={<CreatorDashboard />} />
           <Route path="/creator/campaigns" element={<CampaignHub />} />
           <Route path="/creator/wallet" element={<WalletDashboard />} />
           <Route path="/pm/dashboard" element={<PMDashboard />} />
+          <Route path="/partner-inquiry" element={<PartnerInquiry />} />
         </Routes>
       </main>
-      {!isLanding && !isCreatorFullPage && <BottomNav />}
+      {!isLanding && !isCreatorFullPage && !isSharedChecklist && !isPartnerPortal && <BottomNav />}
     </div>
   )
 }
