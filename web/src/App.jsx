@@ -4,6 +4,8 @@ import MuxPlayer from '@mux/mux-player-react'
 import PMDashboard from './pages/PMDashboard'
 import CreatorDashboard from './pages/CreatorDashboard'
 import CampaignHub from './pages/CampaignHub'
+import MoveInChecklist from './pages/MoveInChecklist'
+import TrustBadge from './components/TrustBadge'
 import { 
   Search, 
   MapPin, 
@@ -20,7 +22,11 @@ import {
   CheckCircle2,
   X,
   Wallet,
-  ArrowRight
+  ArrowRight,
+  Wifi,
+  Truck,
+  ClipboardCheck,
+  Crown
   } from 'lucide-react'
 
 // --- Components ---
@@ -289,7 +295,7 @@ const BottomNav = () => {
     { icon: Compass, label: 'Discover', path: '/discover' },
     { icon: LayoutGrid, label: 'Feed', path: '/feed' },
     { icon: Bookmark, label: 'Saved', path: '/saved' },
-    { icon: MessageCircle, label: 'Ask', path: '/ask' },
+    { icon: ClipboardCheck, label: 'Essentials', path: '/move-in-checklist' },
     { icon: UserIcon, label: 'Profile', path: '/profile' },
   ]
 
@@ -320,6 +326,17 @@ const BuildingCard = ({ building }) => {
   const mockImage = "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=400&q=80"
   const mockPrice = building.price || "$2,100/month"
   const mockRating = building.rating || 4.5
+  
+  // Use real trustScore if available, otherwise mock
+  const trustScore = building.trustScore || Math.floor(Math.random() * (98 - 40) + 40)
+  
+  // Dynamic data for "Gig-Ready" and "Moving" features
+  const internetPartners = (building.affiliateLinks || []).filter(a => a.category === 'internet' || a.serviceType === 'internet')
+  const movingPartners = (building.affiliateLinks || []).filter(a => a.category === 'moving' || a.serviceType === 'moving')
+  
+  const isGigReady = internetPartners.length > 0
+  const primaryInternet = internetPartners[0]
+  const primaryMoving = movingPartners[0]
 
   const handleSave = async (e) => {
     e.stopPropagation()
@@ -343,11 +360,8 @@ const BuildingCard = ({ building }) => {
           alt={building.name} 
           className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" 
         />
-        <div className="absolute top-3 right-3 flex flex-col gap-2">
-          <div className="bg-white/90 backdrop-blur-sm px-2 py-1 rounded-lg flex items-center gap-1 shadow-sm">
-            <Star size={14} className="text-brand-warmGold fill-brand-warmGold" />
-            <span className="text-xs font-bold text-brand-navy">{mockRating}</span>
-          </div>
+        <div className="absolute top-3 right-3 flex flex-col gap-3 items-end">
+          <TrustBadge score={trustScore} size="sm" />
           <button 
             onClick={handleSave}
             className={`p-2 rounded-full backdrop-blur-sm transition-all shadow-sm ${saved ? 'bg-brand-terracotta text-white' : 'bg-white/90 text-brand-stone hover:text-brand-terracotta'}`}
@@ -355,12 +369,48 @@ const BuildingCard = ({ building }) => {
             <Bookmark size={16} fill={saved ? "currentColor" : "none"} />
           </button>
         </div>
+        
+        {isGigReady && (
+          <div className="absolute bottom-3 left-3 bg-white/90 backdrop-blur-md text-brand-navy p-3 rounded-2xl flex items-center gap-3 border border-brand-warmGray shadow-lg animate-in fade-in slide-in-from-left-4 duration-500">
+            <div className="bg-brand-champagne/20 p-2 rounded-xl text-brand-champagne">
+              <Wifi size={16} />
+            </div>
+            <div>
+              <p className="text-[10px] font-bold uppercase tracking-wider">Gig-Ready</p>
+              <p className="text-[8px] text-brand-stone font-medium uppercase tracking-widest">{primaryInternet?.name || 'Fiber Connected'}</p>
+            </div>
+          </div>
+        )}
       </div>
       <div className="p-4">
         <h3 className="text-lg font-serif font-bold text-brand-navy mb-1 line-clamp-1">{building.name}</h3>
         <p className="text-sm text-brand-stone flex items-center gap-1 mb-3">
           <MapPin size={14} /> {building.city}, {building.state}
         </p>
+        
+        {saved && primaryMoving && (
+          <div className="mb-4 p-4 bg-brand-warmIvory rounded-[1.5rem] border border-brand-warmGray flex flex-col gap-4 animate-in zoom-in-95 duration-300">
+            <div className="flex items-center gap-4">
+              <div className="bg-brand-terracotta/10 p-2 rounded-xl text-brand-terracotta">
+                <Truck size={20} />
+              </div>
+              <div className="flex-1">
+                <p className="text-[11px] font-bold text-brand-navy uppercase tracking-wider">Planning your move?</p>
+                <p className="text-[9px] text-brand-stone font-medium">{primaryMoving.name}: {primaryMoving.description || 'Get an instant quote'}</p>
+              </div>
+            </div>
+            <button 
+              onClick={(e) => {
+                e.stopPropagation()
+                navigate(`/move-in-checklist?buildingId=${building.id}&building=${encodeURIComponent(building.name)}`)
+              }}
+              className="w-full bg-brand-terracotta text-white py-3 rounded-xl font-bold text-[11px] uppercase tracking-widest shadow-lg shadow-brand-terracotta/20 hover:scale-[1.02] transition-all"
+            >
+              Book Your Move
+            </button>
+          </div>
+        )}
+
         <div className="flex justify-between items-center">
           <span className="text-brand-navy font-bold">{mockPrice}</span>
           <button 
@@ -462,8 +512,13 @@ const CinematicPlayer = ({ review, isActive }) => {
                 <div className="flex items-center gap-2">
                   <span className="text-white font-bold text-sm">@{review.user?.username}</span>
                   {review.isVerifiedResident && (
-                    <div className="bg-brand-sage text-white text-[8px] font-bold px-1.5 py-0.5 rounded-full flex items-center gap-0.5 uppercase tracking-tighter">
-                      <CheckCircle2 size={10} /> Resident
+                    <div className="bg-brand-sage text-white text-[9px] font-bold px-2 py-1 rounded-full flex items-center gap-1 uppercase tracking-wider">
+                      <CheckCircle2 size={10} strokeWidth={3} /> Verified Resident
+                    </div>
+                  )}
+                  {review.user?.role === 'creator' && (
+                    <div className="bg-brand-sage/40 backdrop-blur-md text-white text-[9px] font-bold px-2 py-1 rounded-full flex items-center gap-1 uppercase tracking-wider border border-white/20">
+                      <Crown size={10} fill="currentColor" /> Founding Creator
                     </div>
                   )}
                 </div>
@@ -666,8 +721,12 @@ function LandingPage() {
           {featuredBuildings.map(building => (
             <div key={building.id} className="min-w-[300px] md:min-w-[350px] snap-start">
               <div className="bg-white rounded-[2rem] shadow-lg shadow-brand-navy/5 border border-brand-warmGray overflow-hidden h-full group cursor-pointer hover:shadow-xl transition-all">
-                <div className="h-56 overflow-hidden">
+                <div className="h-56 overflow-hidden relative">
                   <img src={building.image} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
+                  <div className="absolute top-4 left-4 bg-brand-navy/80 backdrop-blur-md text-white px-3 py-1.5 rounded-xl flex items-center gap-2 border border-white/10 shadow-lg">
+                    <Wifi size={14} className="text-brand-champagne" />
+                    <span className="text-[10px] font-bold uppercase tracking-[0.2em]">Gig-Ready</span>
+                  </div>
                 </div>
                 <div className="p-8">
                   <div className="flex justify-between items-start mb-4">
@@ -767,7 +826,7 @@ function Saved() {
             <div key={item.id} className="relative group">
               {item.itemType === 'building' ? (
                 <div className="bg-white rounded-2xl p-4 border border-brand-warmGray shadow-sm hover:shadow-md transition-all">
-                  <div className="flex gap-4">
+                  <div className="flex gap-4 mb-4">
                     <div className="w-20 h-20 bg-brand-warmGray rounded-xl overflow-hidden flex-shrink-0">
                       <img src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=150&q=80" className="w-full h-full object-cover" />
                     </div>
@@ -776,6 +835,19 @@ function Saved() {
                       <p className="text-xs text-brand-stone mb-2">{item.building?.city}, {item.building?.state}</p>
                       <Link to={`/feed?buildingId=${item.itemId}`} className="text-brand-terracotta text-xs font-bold uppercase tracking-wider">View Tours</Link>
                     </div>
+                  </div>
+                  
+                  <div className="pt-4 border-t border-brand-warmGray/50 flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <Truck size={16} className="text-brand-terracotta" />
+                      <span className="text-[10px] font-bold text-brand-navy uppercase tracking-widest">Move Essentials</span>
+                    </div>
+                    <Link 
+                      to={`/move-in-checklist?building=${encodeURIComponent(item.building?.name || "")}`}
+                      className="bg-brand-terracotta text-white px-4 py-2 rounded-lg text-[10px] font-bold uppercase tracking-widest shadow-md shadow-brand-terracotta/10"
+                    >
+                      Checklist
+                    </Link>
                   </div>
                 </div>
               ) : (
@@ -1154,6 +1226,25 @@ function Profile() {
             </div>
           </section>
 
+          <section>
+            <h3 className="font-serif font-bold text-brand-navy mb-4">Relocation Essentials</h3>
+            <Link 
+              to="/move-in-checklist" 
+              className="w-full bg-white border border-brand-warmGray p-4 rounded-2xl flex items-center justify-between group hover:border-brand-terracotta transition-all shadow-sm"
+            >
+              <div className="flex items-center gap-4">
+                <div className="p-3 bg-brand-terracotta/10 text-brand-terracotta rounded-xl group-hover:bg-brand-terracotta group-hover:text-white transition-all">
+                  <ClipboardCheck size={20} />
+                </div>
+                <div className="text-left">
+                  <p className="font-bold text-brand-navy">Move-In Checklist</p>
+                  <p className="text-[10px] text-brand-stone uppercase tracking-widest">4 of 6 Completed</p>
+                </div>
+              </div>
+              <ChevronRight size={20} className="text-brand-stone group-hover:text-brand-terracotta transition-all" />
+            </Link>
+          </section>
+
           {user?.role === 'manager' && (
             <section>
               <h3 className="font-serif font-bold text-brand-navy mb-4">Management</h3>
@@ -1188,6 +1279,7 @@ function App() {
           <Route path="/profile" element={<Profile />} />
           <Route path="/saved" element={<Saved />} />
           <Route path="/ask" element={<Ask />} />
+          <Route path="/move-in-checklist" element={<MoveInChecklist />} />
           <Route path="/creator/onboarding" element={<CreatorOnboarding />} />
           <Route path="/creator/dashboard" element={<CreatorDashboard />} />
           <Route path="/creator/campaigns" element={<CampaignHub />} />

@@ -173,6 +173,56 @@ async function seed() {
     { id: uuidv4(), buildingId: buildings[1].id },
   ]);
 
+  // --- Affiliate Links ---
+  const affiliateLinks = [
+    {
+      id: uuidv4(),
+      buildingId: buildings[0].id,
+      serviceType: 'moving',
+      name: 'Bellhop Moving',
+      url: 'https://getbellhop.com',
+      category: 'moving',
+      description: 'Get an instant quote for your move to this building'
+    },
+    {
+      id: uuidv4(),
+      buildingId: buildings[0].id,
+      serviceType: 'insurance',
+      name: 'Lemonade Renters Insurance',
+      url: 'https://lemonade.com',
+      category: 'insurance',
+      description: 'Standard renters insurance required by management'
+    },
+    {
+      id: uuidv4(),
+      buildingId: buildings[0].id,
+      serviceType: 'internet',
+      name: 'Xfinity Internet',
+      url: 'https://xfinity.com',
+      category: 'internet',
+      description: 'Pre-installed fiber connected and ready for activation'
+    },
+    {
+      id: uuidv4(),
+      buildingId: buildings[1].id,
+      serviceType: 'moving',
+      name: 'All My Sons Moving',
+      url: 'https://allmysons.com',
+      category: 'moving',
+      description: 'Local moving experts in Tennessee'
+    },
+    {
+      id: uuidv4(),
+      buildingId: buildings[1].id,
+      serviceType: 'internet',
+      name: 'AT&T Fiber',
+      url: 'https://att.com',
+      category: 'internet',
+      description: 'Ultra-fast fiber internet with Gig speeds'
+    }
+  ];
+  await db.insert(schema.affiliateLinks).values(affiliateLinks);
+
   console.log('Seed complete!');
 }
 
