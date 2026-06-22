@@ -8,6 +8,7 @@ import * as schema from './schema'
 import { eq, and, like, desc } from 'drizzle-orm'
 import { pmRoutes } from './pm'
 import { creatorRoutes } from './creator'
+import { partnerRoutes } from './partner'
 import { trustRoutes, calculateTrustScore } from './trust'
 import { v4 as uuidv4 } from 'uuid'
 
@@ -537,6 +538,8 @@ fastify.register(pmRoutes, { prefix: '/api/pm' })
 // --- Creator Endpoints ---
 
 fastify.register(creatorRoutes, { prefix: '/api/creator' })
+
+fastify.register(partnerRoutes, { prefix: '/api' })
 
 // --- Trust Index Endpoints ---
 

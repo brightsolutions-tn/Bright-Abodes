@@ -226,3 +226,40 @@ export const buildingViewsRelations = relations(buildingViews, ({ one }) => ({
     references: [buildings.id],
   }),
 }));
+
+export const creatorApplications = sqliteTable('creator_applications', {
+  id: text('id').primaryKey(),
+  userId: text('user_id').references(() => users.id),
+  clerkId: text('clerk_id'), // For users not yet in our db
+  fullName: text('full_name'),
+  email: text('email'),
+  city: text('city'),
+  socialHandle: text('social_handle'),
+  videoLink: text('video_link'),
+  visionSyncCompleted: integer('vision_sync_completed', { mode: 'boolean' }).default(false),
+  agreementSigned: integer('agreement_signed', { mode: 'boolean' }).default(false),
+  verificationDocUrl: text('verification_doc_url'),
+  status: text('status', { enum: ['pending', 'approved', 'rejected'] }).default('pending'),
+  createdAt: text('created_at').default(sql`CURRENT_TIMESTAMP`),
+});
+
+export const creatorApplicationsRelations = relations(creatorApplications, ({ one }) => ({
+  user: one(users, {
+    fields: [creatorApplications.userId],
+    references: [users.id],
+  }),
+}));
+
+export const partnerInquiries = sqliteTable('partner_inquiries', {
+  id: text('id').primaryKey(),
+  companyName: text('company_name'),
+  websiteUrl: text('website_url'),
+  serviceCategory: text('service_category'),
+  targetCities: text('target_cities'), // JSON or comma-separated
+  integrationLevel: text('integration_level'),
+  contactName: text('contact_name'),
+  contactEmail: text('contact_email'),
+  contactPhone: text('contact_phone'),
+  status: text('status', { enum: ['new', 'reviewed', 'contacted', 'partnered', 'rejected'] }).default('new'),
+  createdAt: text('created_at').default(sql`CURRENT_TIMESTAMP`),
+});

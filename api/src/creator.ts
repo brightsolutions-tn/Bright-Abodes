@@ -3,6 +3,7 @@ import { db } from './db';
 import * as schema from './schema';
 import { eq, and, sql, desc, inArray, count } from 'drizzle-orm';
 import { getAuth } from '@clerk/fastify';
+import { v4 as uuidv4 } from 'uuid';
 
 export async function creatorRoutes(fastify: FastifyInstance) {
   const hasClerkKeys = !!(process.env.CLERK_PUBLISHABLE_KEY && process.env.CLERK_SECRET_KEY);
@@ -128,6 +129,88 @@ export async function creatorRoutes(fastify: FastifyInstance) {
     } catch (err) {
       fastify.log.error(err);
       return reply.code(500).send({ error: 'Failed to update status' });
+    }
+  });
+
+  // POST /api/creator/apply
+  fastify.post('/apply', async (request, reply) => {
+    const clerkId = hasClerkKeys ? getAuth(request).userId : 'user_potential_creator_001';
+    
+    if (!clerkId && process.env.NODE_ENV === 'production') {
+      return reply.code(401).send({ error: 'Unauthorized' });
+    }
+
+    const { fullName, email, city, socialHandle, videoLink } = request.body as any;
+
+    try {
+      const id = uuidv4();
+      await db.insert(schema.creatorApplications).values({
+        id,
+        clerkId: clerkId || 'user_potential_creator_001',
+        fullName,
+        email,
+        city,
+        socialHandle,
+        videoLink,
+        visionSyncCompleted: true, // Mocking that they've already done this or it's the start
+        agreementSigned: false,
+        status: 'pending'
+      });
+
+      return { success: true, applicationId: id };
+    } catch (err) {
+      fastify.log.error(err);
+      return reply.code(500).send({ error: 'Failed to submit application' });
+    }
+  });
+
+  // GET /api/creator/application-status
+  fastify.get('/application-status', async (request, reply) => {
+    const clerkId = hasClerkKeys ? getAuth(request).userId : 'user_potential_creator_001';
+
+    if (!clerkId && process.env.NODE_ENV === 'production') {
+      return reply.code(401).send({ error: 'Unauthorized' });
+    }
+
+    try {
+      const application = await db.query.creatorApplications.findFirst({
+        where: eq(schema.creatorApplications.clerkId, clerkId || 'user_potential_creator_001'),
+        orderBy: [desc(schema.creatorApplications.createdAt)]
+      });
+
+      if (!application) {
+        return { hasApplication: false };
+      }
+
+      return { hasApplication: true, application };
+    } catch (err) {
+      fastify.log.error(err);
+      return reply.code(500).send({ error: 'Failed to fetch application status' });
+    }
+  });
+
+  // POST /api/creator/sign-agreement
+  fastify.post('/sign-agreement', async (request, reply) => {
+    const clerkId = hasClerkKeys ? getAuth(request).userId : 'user_potential_creator_001';
+
+    try {
+      const application = await db.query.creatorApplications.findFirst({
+        where: eq(schema.creatorApplications.clerkId, clerkId || 'user_potential_creator_001'),
+        orderBy: [desc(schema.creatorApplications.createdAt)]
+      });
+
+      if (!application) {
+        return reply.code(404).send({ error: 'Application not found' });
+      }
+
+      await db.update(schema.creatorApplications)
+        .set({ agreementSigned: true })
+        .where(eq(schema.creatorApplications.id, application.id));
+
+      return { success: true };
+    } catch (err) {
+      fastify.log.error(err);
+      return reply.code(500).send({ error: 'Failed to sign agreement' });
     }
   });
 }
