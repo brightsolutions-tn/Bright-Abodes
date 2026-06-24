@@ -9,23 +9,14 @@ export async function pmRoutes(fastify: FastifyInstance) {
 
   // Pre-handler hook to ensure user is a property manager
   fastify.addHook('preHandler', async (request, reply) => {
-    let clerkId: string | null = null;
+    const { userId: clerkId } = getAuth(request);
     
-    if (hasClerkKeys) {
-      clerkId = getAuth(request).userId;
-    } else {
-      // Fallback for dev/sandbox where keys are missing
-      clerkId = 'user_pm_admin_123'; 
-    }
-    
-    if (!clerkId && process.env.NODE_ENV === 'production') {
+    if (!clerkId) {
       return reply.code(401).send({ error: 'Unauthorized' });
     }
 
-    const effectiveClerkId = clerkId || 'user_pm_admin_123';
-
     const user = await db.query.users.findFirst({
-      where: eq(schema.users.clerkId, effectiveClerkId),
+      where: eq(schema.users.clerkId, clerkId),
     });
 
     if (!user) {

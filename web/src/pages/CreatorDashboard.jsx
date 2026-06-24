@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
+import { useAuth, useUser } from '@clerk/clerk-react'
 import { 
   Trophy, 
   Eye, 
@@ -17,23 +18,37 @@ const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:3000
 
 export default function CreatorDashboard() {
   const navigate = useNavigate()
+  const { getToken } = useAuth()
+  const { user: clerkUser } = useUser()
+  const [dbUser, setDbUser] = useState(null)
   const [stats, setStats] = useState(null)
   const [collabs, setCollabs] = useState([])
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    Promise.all([
-      fetch(`${API_BASE_URL}/api/creator/stats`).then(res => res.json()),
-      fetch(`${API_BASE_URL}/api/creator/collaborations`).then(res => res.json())
-    ]).then(([statsData, collabsData]) => {
-      setStats(statsData)
-      setCollabs(Array.isArray(collabsData) ? collabsData : [])
-      setLoading(false)
-    }).catch(err => {
-      console.error('Failed to fetch creator data:', err)
-      setLoading(false)
-    })
-  }, [])
+    const fetchData = async () => {
+      try {
+        const token = await getToken()
+        const headers = { Authorization: `Bearer ${token}` }
+        const [statsRes, collabsRes, meRes] = await Promise.all([
+          fetch(`${API_BASE_URL}/api/creator/stats`, { headers }),
+          fetch(`${API_BASE_URL}/api/creator/collaborations`, { headers }),
+          fetch(`${API_BASE_URL}/api/me`, { headers })
+        ])
+        const statsData = await statsRes.json()
+        const collabsData = await collabsRes.json()
+        const meData = await meRes.json()
+        setStats(statsData)
+        setCollabs(Array.isArray(collabsData) ? collabsData : [])
+        setDbUser(meData)
+      } catch (err) {
+        console.error('Failed to fetch creator data:', err)
+      } finally {
+        setLoading(false)
+      }
+    }
+    fetchData()
+  }, [getToken])
 
   if (loading) return (
     <div className="min-h-screen bg-brand-warmIvory flex items-center justify-center p-8">
@@ -42,6 +57,7 @@ export default function CreatorDashboard() {
   )
 
   const earnings = stats?.earnings || { total: 0, pending: 0, available: 0 }
+  const username = dbUser?.username || clerkUser?.username || 'creator'
 
   return (
     <div className="min-h-screen bg-brand-warmIvory pb-24">
@@ -49,11 +65,17 @@ export default function CreatorDashboard() {
       <header className="px-6 pt-12 pb-8 bg-white border-b border-brand-warmGray rounded-b-[3rem] shadow-sm">
         <div className="flex items-center gap-4 mb-6">
           <div className="w-16 h-16 rounded-full bg-brand-warmGray overflow-hidden border-2 border-brand-terracotta/20">
-            <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=150&q=80" alt="Avatar" className="w-full h-full object-cover" />
+            {clerkUser?.imageUrl ? (
+              <img src={clerkUser.imageUrl} alt="Avatar" className="w-full h-full object-cover" />
+            ) : (
+              <div className="w-full h-full flex items-center justify-center text-brand-stone bg-brand-warmIvory">
+                <Building size={32} />
+              </div>
+            )}
           </div>
           <div>
             <h1 className="text-xl font-serif font-bold text-brand-navy flex items-center gap-2">
-              @alexabodes
+              @{username}
               <div className="bg-brand-champagne/20 text-brand-champagne p-1 rounded-full border border-brand-champagne/30">
                 <Trophy size={14} className="fill-current" />
               </div>

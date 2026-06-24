@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import { useAuth } from '@clerk/clerk-react'
 
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://127.0.0.1:3000'
+
 export default function VideoUpload({ onUploadSuccess }) {
   const [file, setFile] = useState(null)
   const [uploading, setUploading] = useState(false)
@@ -21,7 +23,7 @@ export default function VideoUpload({ onUploadSuccess }) {
       const token = await getToken()
       
       // 1. Get upload URL from our backend
-      const response = await fetch('/api/uploads', {
+      const response = await fetch(`${API_BASE_URL}/api/uploads`, {
         method: 'POST',
         headers: {
           Authorization: `Bearer ${token}`,

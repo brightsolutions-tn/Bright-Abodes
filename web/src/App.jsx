@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { Routes, Route, Link, useLocation, useNavigate } from 'react-router-dom'
+import { useAuth, useUser, SignInButton, UserButton, SignedIn, SignedOut } from '@clerk/clerk-react'
 import MuxPlayer from '@mux/mux-player-react'
 import PMDashboard from './pages/PMDashboard'
 import CreatorDashboard from './pages/CreatorDashboard'
@@ -28,7 +29,6 @@ import {
   Wifi,
   Truck,
   ClipboardCheck,
-  Crown
   Crown,
   Plus
   } from 'lucide-react'
@@ -119,7 +119,22 @@ const Navbar = () => {
     <nav className="px-4 py-4 bg-brand-warmIvory sticky top-0 z-20">
       <div className="max-w-md mx-auto">
         <div className="flex flex-col gap-4">
-          <h1 className="text-3xl font-serif font-bold text-brand-navy text-center">Bright Abodes</h1>
+          <div className="flex justify-between items-center">
+            <div className="w-8"></div>
+            <h1 className="text-3xl font-serif font-bold text-brand-navy text-center">Bright Abodes</h1>
+            <div className="w-8 flex justify-end">
+              <SignedIn>
+                <UserButton afterSignOutUrl="/" />
+              </SignedIn>
+              <SignedOut>
+                <SignInButton mode="modal">
+                  <button className="text-brand-navy hover:text-brand-terracotta transition-colors">
+                    <UserIcon size={24} />
+                  </button>
+                </SignInButton>
+              </SignedOut>
+            </div>
+          </div>
           <div className="relative group">
             <div className="absolute inset-y-0 left-3 flex items-center pointer-events-none text-brand-stone group-focus-within:text-brand-terracotta transition-colors">
               <Search size={20} />
@@ -194,6 +209,7 @@ const BottomNav = () => {
 }
 
 const BuildingCard = ({ building }) => {
+  const { getToken } = useAuth()
   const navigate = useNavigate()
   const [saved, setSaved] = useState(false)
   const mockImage = "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=400&q=80"
@@ -213,11 +229,16 @@ const BuildingCard = ({ building }) => {
 
   const handleSave = async (e) => {
     e.stopPropagation()
+    const token = await getToken()
+    if (!token) return // Should probably redirect to login
     setSaved(!saved)
     try {
       await fetch(`${API_BASE_URL}/api/saved/toggle`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
         body: JSON.stringify({ itemType: 'building', itemId: building.id })
       })
     } catch (err) {
@@ -334,16 +355,22 @@ const MapPlaceholder = ({ buildings }) => {
 }
 
 const CinematicPlayer = ({ review, isActive }) => {
+  const { getToken } = useAuth()
   const [liked, setLike] = useState(false)
   const [saved, setSaved] = useState(false)
   const [showToast, setShowToast] = useState(false)
   
   const handleSave = async () => {
+    const token = await getToken()
+    if (!token) return
     setSaved(!saved)
     try {
       await fetch(`${API_BASE_URL}/api/saved/toggle`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
         body: JSON.stringify({ itemType: 'review', itemId: review.id })
       })
     } catch (err) {
@@ -704,21 +731,29 @@ function LandingPage() {
 }
 
 function Saved() {
+  const { getToken } = useAuth()
   const [items, setItems] = useState([])
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    fetch(`${API_BASE_URL}/api/saved`)
-      .then(res => res.json())
-      .then(data => {
+    const fetchSaved = async () => {
+      try {
+        const token = await getToken()
+        const res = await fetch(`${API_BASE_URL}/api/saved`, {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        })
+        const data = await res.json()
         setItems(Array.isArray(data) ? data : [])
-        setLoading(false)
-      })
-      .catch(err => {
+      } catch (err) {
         console.error('Failed to fetch saved items:', err)
+      } finally {
         setLoading(false)
-      })
-  }, [])
+      }
+    }
+    fetchSaved()
+  }, [getToken])
 
   if (loading) return (
     <div className="p-8 text-center pt-24">
@@ -787,6 +822,7 @@ function Saved() {
 }
 
 function Ask() {
+  const { getToken } = useAuth()
   const [questions, setQuestions] = useState([])
   const [loading, setLoading] = useState(true)
   const [showForm, setShowForm] = useState(false)
@@ -805,20 +841,34 @@ function Ask() {
       })
   }, [])
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    // Mock submit
-    const id = Math.random().toString(36).substr(2, 9)
-    const question = {
-      id,
-      content: newQuestion,
-      user: { username: 'current_user' },
-      createdAt: new Date().toISOString(),
-      answers: []
+    try {
+      const token = await getToken()
+      const res = await fetch(`${API_BASE_URL}/api/questions`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({ content: newQuestion })
+      })
+      if (res.ok) {
+        const { id } = await res.json()
+        const question = {
+          id,
+          content: newQuestion,
+          user: { username: 'you' },
+          createdAt: new Date().toISOString(),
+          answers: []
+        }
+        setQuestions([question, ...questions])
+        setNewQuestion('')
+        setShowForm(false)
+      }
+    } catch (err) {
+      console.error('Failed to post question:', err)
     }
-    setQuestions([question, ...questions])
-    setNewQuestion('')
-    setShowForm(false)
   }
 
   if (loading) return (
@@ -1080,23 +1130,39 @@ function Feed() {
 import VideoUpload from './components/VideoUpload'
 
 function Profile() {
+  const { user: clerkUser, isLoaded: isClerkLoaded } = useUser()
+  const { getToken, signOut } = useAuth()
   const [user, setUser] = useState(null)
   const [loading, setLoading] = useState(true)
   const [showUpload, setShowUpload] = useState(false)
   const navigate = useNavigate()
 
   useEffect(() => {
-    fetch(`${API_BASE_URL}/api/me`)
-      .then(res => res.json())
-      .then(data => {
+    const fetchProfile = async () => {
+      try {
+        const token = await getToken()
+        if (!token) {
+          setLoading(false)
+          return
+        }
+        const res = await fetch(`${API_BASE_URL}/api/me`, {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        })
+        const data = await res.json()
         setUser(data)
-        setLoading(false)
-      })
-      .catch(err => {
+      } catch (err) {
         console.error('Failed to fetch profile:', err)
+      } finally {
         setLoading(false)
-      })
-  }, [])
+      }
+    }
+
+    if (isClerkLoaded) {
+      fetchProfile()
+    }
+  }, [isClerkLoaded, getToken])
 
   if (loading) return <div className="p-8 text-center pt-24 font-serif italic text-brand-stone">Loading profile...</div>
 
@@ -1107,16 +1173,31 @@ function Profile() {
       <div className="bg-white p-8 rounded-3xl shadow-sm border border-brand-warmGray text-center relative overflow-hidden mb-8">
         <div className="absolute top-0 left-0 right-0 h-2 bg-brand-terracotta"></div>
         <div className="mb-6 flex justify-center">
-          <div className="w-24 h-24 bg-brand-warmIvory rounded-full flex items-center justify-center text-brand-stone border-2 border-brand-warmGray overflow-hidden">
-            {user?.avatarUrl ? <img src={user.avatarUrl} alt={user.username} className="w-full h-full object-cover" /> : <UserIcon size={48} />}
-          </div>
+          <SignedOut>
+            <div className="w-24 h-24 bg-brand-warmIvory rounded-full flex items-center justify-center text-brand-stone border-2 border-brand-warmGray overflow-hidden">
+              <UserIcon size={48} />
+            </div>
+          </SignedOut>
+          <SignedIn>
+            <UserButton appearance={{ elements: { userButtonAvatarBox: 'w-24 h-24' } }} />
+          </SignedIn>
         </div>
-        <h1 className="text-2xl font-serif font-bold text-brand-navy">@{user?.username || 'Guest'}</h1>
-        <p className="text-brand-stone text-sm mb-4">{user?.fullName || 'Sign in to see your profile'}</p>
-        {!user?.id && <button className="bg-brand-navy text-white px-6 py-2 rounded-xl text-sm font-bold">Sign In</button>}
+        <h1 className="text-2xl font-serif font-bold text-brand-navy">
+          <SignedIn>@{user?.username || clerkUser?.username}</SignedIn>
+          <SignedOut>Guest</SignedOut>
+        </h1>
+        <p className="text-brand-stone text-sm mb-4">
+          <SignedIn>{user?.fullName || clerkUser?.fullName}</SignedIn>
+          <SignedOut>Sign in to see your profile</SignedOut>
+        </p>
+        <SignedOut>
+          <SignInButton mode="modal">
+            <button className="bg-brand-navy text-white px-6 py-2 rounded-xl text-sm font-bold">Sign In</button>
+          </SignInButton>
+        </SignedOut>
       </div>
 
-      {user?.id && (
+      <SignedIn>
         <div className="space-y-6">
           {showUpload ? (
             <div className="bg-white p-6 rounded-3xl border border-brand-terracotta/20 shadow-xl animate-in zoom-in-95 duration-300">
@@ -1178,7 +1259,10 @@ function Profile() {
                 <span>Verification Status</span>
                 <span className="bg-brand-sage/10 text-brand-sage text-[10px] px-2 py-0.5 rounded-full font-bold uppercase">Verified Resident</span>
               </button>
-              <button className="w-full p-4 text-left text-sm flex justify-between items-center hover:bg-brand-warmIvory/50 transition-all text-brand-terracotta font-bold">
+              <button 
+                onClick={() => signOut()}
+                className="w-full p-4 text-left text-sm flex justify-between items-center hover:bg-brand-warmIvory/50 transition-all text-brand-terracotta font-bold"
+              >
                 <span>Sign Out</span>
               </button>
             </div>
@@ -1215,7 +1299,7 @@ function Profile() {
             </section>
           )}
         </div>
-      )}
+      </SignedIn>
     </div>
   )
 }

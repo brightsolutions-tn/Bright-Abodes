@@ -86,7 +86,7 @@ fastify.get('/api/affiliates', async (request, reply) => {
 })
 
 fastify.get('/api/me', async (request, reply) => {
-  const userId = hasClerkKeys ? getAuth(request).userId : 'user_2k0FvF5z4z4z4z4z4z4z4z4z4z' // Use a seeded clerkId
+  const { userId } = getAuth(request)
   
   if (!userId) {
     return reply.code(401).send({ error: 'Unauthorized' })

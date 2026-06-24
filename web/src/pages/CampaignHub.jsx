@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { useAuth } from '@clerk/clerk-react'
 import { 
   ChevronLeft, 
   Building, 
@@ -14,28 +15,40 @@ const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:3000
 
 export default function CampaignHub() {
   const navigate = useNavigate()
+  const { getToken } = useAuth()
   const [collabs, setCollabs] = useState([])
   const [filter, setFilter] = useState('all')
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    fetch(`${API_BASE_URL}/api/creator/collaborations`)
-      .then(res => res.json())
-      .then(data => {
+    const fetchCampaigns = async () => {
+      try {
+        const token = await getToken()
+        const res = await fetch(`${API_BASE_URL}/api/creator/collaborations`, {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        })
+        const data = await res.json()
         setCollabs(Array.isArray(data) ? data : [])
-        setLoading(false)
-      })
-      .catch(err => {
+      } catch (err) {
         console.error('Failed to fetch campaigns:', err)
+      } finally {
         setLoading(false)
-      })
-  }, [])
+      }
+    }
+    fetchCampaigns()
+  }, [getToken])
 
   const handleAction = async (id, status) => {
     try {
+      const token = await getToken()
       const res = await fetch(`${API_BASE_URL}/api/creator/collaborations/${id}/status`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
         body: JSON.stringify({ status })
       })
       if (res.ok) {

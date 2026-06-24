@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { useAuth } from '@clerk/clerk-react'
 import { CheckCircle2, ChevronLeft, Building, User, ClipboardCheck, Loader2 } from 'lucide-react'
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://127.0.0.1:3000'
 
 const CreatorOnboarding = () => {
   const navigate = useNavigate()
+  const { getToken } = useAuth()
   const [step, setStep] = useState(1)
   const [loading, setLoading] = useState(true)
   const [submitting, setLoading2] = useState(false)
@@ -21,9 +23,15 @@ const CreatorOnboarding = () => {
   })
 
   useEffect(() => {
-    fetch(`${API_BASE_URL}/api/creator/application-status`)
-      .then(res => res.json())
-      .then(data => {
+    const fetchStatus = async () => {
+      try {
+        const token = await getToken()
+        const res = await fetch(`${API_BASE_URL}/api/creator/application-status`, {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        })
+        const data = await res.json()
         if (data.hasApplication) {
           setApplication(data.application)
           if (data.application.agreementSigned) {
@@ -34,21 +42,26 @@ const CreatorOnboarding = () => {
         } else {
           setStep(1)
         }
-        setLoading(false)
-      })
-      .catch(err => {
+      } catch (err) {
         console.error('Failed to fetch status:', err)
+      } finally {
         setLoading(false)
-      })
-  }, [])
+      }
+    }
+    fetchStatus()
+  }, [getToken])
 
   const handleApply = async (e) => {
     e.preventDefault()
     setLoading2(true)
     try {
+      const token = await getToken()
       const res = await fetch(`${API_BASE_URL}/api/creator/apply`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
         body: JSON.stringify(formData)
       })
       const data = await res.json()
@@ -65,8 +78,12 @@ const CreatorOnboarding = () => {
   const handleSign = async () => {
     setLoading2(true)
     try {
+      const token = await getToken()
       const res = await fetch(`${API_BASE_URL}/api/creator/sign-agreement`, {
-        method: 'POST'
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
       })
       const data = await res.json()
       if (data.success) {

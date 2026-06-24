@@ -10,23 +10,14 @@ export async function creatorRoutes(fastify: FastifyInstance) {
 
   // Pre-handler hook to ensure user is a creator
   fastify.addHook('preHandler', async (request, reply) => {
-    let clerkId: string | null = null;
+    const { userId: clerkId } = getAuth(request);
     
-    if (hasClerkKeys) {
-      clerkId = getAuth(request).userId;
-    } else {
-      // Fallback for dev/sandbox where keys are missing
-      clerkId = 'user_creator_001'; 
-    }
-    
-    if (!clerkId && process.env.NODE_ENV === 'production') {
+    if (!clerkId) {
       return reply.code(401).send({ error: 'Unauthorized' });
     }
 
-    const effectiveClerkId = clerkId || 'user_creator_001';
-
     const user = await db.query.users.findFirst({
-      where: eq(schema.users.clerkId, effectiveClerkId),
+      where: eq(schema.users.clerkId, clerkId),
     });
 
     if (!user) {
@@ -134,9 +125,9 @@ export async function creatorRoutes(fastify: FastifyInstance) {
 
   // POST /api/creator/apply
   fastify.post('/apply', async (request, reply) => {
-    const clerkId = hasClerkKeys ? getAuth(request).userId : 'user_potential_creator_001';
+    const { userId: clerkId } = getAuth(request);
     
-    if (!clerkId && process.env.NODE_ENV === 'production') {
+    if (!clerkId) {
       return reply.code(401).send({ error: 'Unauthorized' });
     }
 
@@ -146,7 +137,7 @@ export async function creatorRoutes(fastify: FastifyInstance) {
       const id = uuidv4();
       await db.insert(schema.creatorApplications).values({
         id,
-        clerkId: clerkId || 'user_potential_creator_001',
+        clerkId,
         fullName,
         email,
         city,
@@ -166,15 +157,15 @@ export async function creatorRoutes(fastify: FastifyInstance) {
 
   // GET /api/creator/application-status
   fastify.get('/application-status', async (request, reply) => {
-    const clerkId = hasClerkKeys ? getAuth(request).userId : 'user_potential_creator_001';
+    const { userId: clerkId } = getAuth(request);
 
-    if (!clerkId && process.env.NODE_ENV === 'production') {
+    if (!clerkId) {
       return reply.code(401).send({ error: 'Unauthorized' });
     }
 
     try {
       const application = await db.query.creatorApplications.findFirst({
-        where: eq(schema.creatorApplications.clerkId, clerkId || 'user_potential_creator_001'),
+        where: eq(schema.creatorApplications.clerkId, clerkId),
         orderBy: [desc(schema.creatorApplications.createdAt)]
       });
 
@@ -191,11 +182,15 @@ export async function creatorRoutes(fastify: FastifyInstance) {
 
   // POST /api/creator/sign-agreement
   fastify.post('/sign-agreement', async (request, reply) => {
-    const clerkId = hasClerkKeys ? getAuth(request).userId : 'user_potential_creator_001';
+    const { userId: clerkId } = getAuth(request);
+    
+    if (!clerkId) {
+      return reply.code(401).send({ error: 'Unauthorized' });
+    }
 
     try {
       const application = await db.query.creatorApplications.findFirst({
-        where: eq(schema.creatorApplications.clerkId, clerkId || 'user_potential_creator_001'),
+        where: eq(schema.creatorApplications.clerkId, clerkId),
         orderBy: [desc(schema.creatorApplications.createdAt)]
       });
 
