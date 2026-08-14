@@ -5,9 +5,11 @@ import { eq, and, sql, desc, inArray, count } from 'drizzle-orm';
 import { getAuth } from '@clerk/fastify';
 import { v4 as uuidv4 } from 'uuid';
 
+import { getOrCreateUser } from './utils';
+
 export async function creatorRoutes(fastify: FastifyInstance) {
 
-  // Pre-handler hook to ensure user is a creator
+  // Pre-handler hook to ensure user exists and identify them
   fastify.addHook('preHandler', async (request, reply) => {
     const { userId: clerkId } = getAuth(request);
     
@@ -15,19 +17,15 @@ export async function creatorRoutes(fastify: FastifyInstance) {
       return reply.code(401).send({ error: 'Unauthorized' });
     }
 
-    const user = await db.query.users.findFirst({
-      where: eq(schema.users.clerkId, clerkId),
-    });
+    const user = await getOrCreateUser(clerkId);
 
     if (!user) {
-      return reply.code(404).send({ error: 'User not found in local database' });
+      return reply.code(500).send({ error: 'Failed to sync user' });
     }
 
-    // Allow creator or admin
-    if (user.role !== 'creator' && user.role !== 'admin') {
-      fastify.log.warn(`User ${user.id} attempted to access Creator routes but has role ${user.role}`);
-    }
-
+    // Allow creator or admin for certain actions, but for base access we just need the user
+    // We'll leave role checks to specific routes if needed, or keep it generic here but less restrictive
+    
     (request as any).dbUser = user;
   });
 

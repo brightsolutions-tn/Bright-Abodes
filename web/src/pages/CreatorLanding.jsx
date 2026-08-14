@@ -1,23 +1,39 @@
 import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { useAuth } from '@clerk/clerk-react'
 import { Crown, DollarSign, TrendingUp, ChevronLeft, Loader2 } from 'lucide-react'
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://127.0.0.1:3000'
 
 const CreatorLanding = () => {
   const navigate = useNavigate()
+  const { getToken } = useAuth()
   const [hasApplication, setHasApplication] = useState(false)
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    fetch(`${API_BASE_URL}/api/creator/application-status`)
-      .then(res => res.json())
-      .then(data => {
+    const checkStatus = async () => {
+      try {
+        const token = await getToken()
+        if (!token) {
+          setLoading(false)
+          return
+        }
+        const res = await fetch(`${API_BASE_URL}/api/creator/application-status`, {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        })
+        const data = await res.json()
         setHasApplication(data.hasApplication)
+      } catch (err) {
+        console.error('Failed to check status:', err)
+      } finally {
         setLoading(false)
-      })
-      .catch(() => setLoading(false))
-  }, [])
+      }
+    }
+    checkStatus()
+  }, [getToken])
 
   return (
     <div className="min-h-screen bg-brand-navy text-white flex flex-col font-sans max-w-md mx-auto relative overflow-hidden">

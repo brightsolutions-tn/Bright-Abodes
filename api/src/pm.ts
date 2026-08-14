@@ -4,9 +4,11 @@ import * as schema from './schema';
 import { eq, and, sql, desc, count, avg, inArray } from 'drizzle-orm';
 import { getAuth } from '@clerk/fastify';
 
+import { getOrCreateUser } from './utils';
+
 export async function pmRoutes(fastify: FastifyInstance) {
 
-  // Pre-handler hook to ensure user is a property manager
+  // Pre-handler hook to ensure user exists
   fastify.addHook('preHandler', async (request, reply) => {
     const { userId: clerkId } = getAuth(request);
     
@@ -14,16 +16,10 @@ export async function pmRoutes(fastify: FastifyInstance) {
       return reply.code(401).send({ error: 'Unauthorized' });
     }
 
-    const user = await db.query.users.findFirst({
-      where: eq(schema.users.clerkId, clerkId),
-    });
+    const user = await getOrCreateUser(clerkId);
 
     if (!user) {
-      return reply.code(404).send({ error: 'User not found in local database' });
-    }
-
-    if (user.role !== 'manager' && user.role !== 'admin') {
-      fastify.log.warn(`User ${user.id} attempted to access PM routes but has role ${user.role}`);
+      return reply.code(500).send({ error: 'Failed to sync user' });
     }
 
     (request as any).dbUser = user;

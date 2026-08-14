@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { useAuth } from '@clerk/clerk-react'
 import { 
   Building, 
   Video, 
@@ -24,26 +25,37 @@ import {
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:3000'
 
 export default function PMDashboard() {
+  const { getToken } = useAuth()
   const [stats, setStats] = useState(null)
   const [buildings, setBuildings] = useState([])
   const [reviews, setReviews] = useState([])
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    Promise.all([
-      fetch(`${API_BASE_URL}/api/pm/stats`).then(res => res.json()),
-      fetch(`${API_BASE_URL}/api/pm/buildings`).then(res => res.json()),
-      fetch(`${API_BASE_URL}/api/pm/reviews`).then(res => res.json()),
-    ]).then(([statsData, buildingsData, reviewsData]) => {
-      setStats(statsData)
-      setBuildings(Array.isArray(buildingsData) ? buildingsData : [])
-      setReviews(Array.isArray(reviewsData) ? reviewsData : [])
-      setLoading(false)
-    }).catch(err => {
-      console.error('Failed to fetch PM data:', err)
-      setLoading(false)
-    })
-  }, [])
+    const fetchData = async () => {
+      try {
+        const token = await getToken()
+        if (!token) {
+          setLoading(false)
+          return
+        }
+        const headers = { Authorization: `Bearer ${token}` }
+        const [statsData, buildingsData, reviewsData] = await Promise.all([
+          fetch(`${API_BASE_URL}/api/pm/stats`, { headers }).then(res => res.json()),
+          fetch(`${API_BASE_URL}/api/pm/buildings`, { headers }).then(res => res.json()),
+          fetch(`${API_BASE_URL}/api/pm/reviews`, { headers }).then(res => res.json()),
+        ])
+        setStats(statsData)
+        setBuildings(Array.isArray(buildingsData) ? buildingsData : [])
+        setReviews(Array.isArray(reviewsData) ? reviewsData : [])
+      } catch (err) {
+        console.error('Failed to fetch PM data:', err)
+      } finally {
+        setLoading(false)
+      }
+    }
+    fetchData()
+  }, [getToken])
 
   if (loading) return <div className="p-12 text-center font-serif italic">Loading Dashboard...</div>
 

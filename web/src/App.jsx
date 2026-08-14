@@ -30,8 +30,8 @@ import {
   Truck,
   ClipboardCheck,
   Crown,
-  Plus
-  } from 'lucide-react'
+  Plus,
+} from 'lucide-react'
 
 // --- Components ---
 
