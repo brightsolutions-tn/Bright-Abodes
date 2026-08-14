@@ -25,13 +25,7 @@ fastify.register(cors, {
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS']
 })
 
-const hasClerkKeys = process.env.CLERK_PUBLISHABLE_KEY && process.env.CLERK_SECRET_KEY
-
-if (hasClerkKeys) {
-  fastify.register(clerkPlugin)
-} else {
-  fastify.log.warn('Clerk keys missing. Auth endpoints will be disabled or bypassed.')
-}
+fastify.register(clerkPlugin)
 
 // --- Helpers ---
 
@@ -244,7 +238,7 @@ fastify.get('/api/buildings/:id/reviews', async (request, reply) => {
 })
 
 fastify.post('/api/reviews', async (request, reply) => {
-  if (!hasClerkKeys) return reply.code(500).send({ error: 'Auth not configured' })
+  
   const { userId } = getAuth(request)
   if (!userId) {
     return reply.code(401).send({ error: 'Unauthorized' })
@@ -296,7 +290,7 @@ fastify.get('/api/reviews/:id/comments', async (request, reply) => {
 })
 
 fastify.post('/api/comments', async (request, reply) => {
-  if (!hasClerkKeys) return reply.code(500).send({ error: 'Auth not configured' })
+  
   const { userId } = getAuth(request)
   if (!userId) {
     return reply.code(401).send({ error: 'Unauthorized' })
@@ -325,7 +319,7 @@ fastify.post('/api/comments', async (request, reply) => {
 // --- Saved Items Endpoints ---
 
 fastify.get('/api/saved', async (request, reply) => {
-  if (!hasClerkKeys) return reply.code(500).send({ error: 'Auth not configured' })
+  
   const { userId } = getAuth(request)
   if (!userId) {
     return reply.code(401).send({ error: 'Unauthorized' })
@@ -362,7 +356,7 @@ fastify.get('/api/saved', async (request, reply) => {
 })
 
 fastify.post('/api/saved/toggle', async (request, reply) => {
-  if (!hasClerkKeys) return reply.code(500).send({ error: 'Auth not configured' })
+  
   const { userId } = getAuth(request)
   if (!userId) {
     return reply.code(401).send({ error: 'Unauthorized' })
@@ -429,7 +423,7 @@ fastify.get('/api/questions', async (request, reply) => {
 })
 
 fastify.post('/api/questions', async (request, reply) => {
-  if (!hasClerkKeys) return reply.code(500).send({ error: 'Auth not configured' })
+  
   const { userId } = getAuth(request)
   if (!userId) {
     return reply.code(401).send({ error: 'Unauthorized' })
@@ -455,7 +449,7 @@ fastify.post('/api/questions', async (request, reply) => {
 })
 
 fastify.post('/api/answers', async (request, reply) => {
-  if (!hasClerkKeys) return reply.code(500).send({ error: 'Auth not configured' })
+  
   const { userId } = getAuth(request)
   if (!userId) {
     return reply.code(401).send({ error: 'Unauthorized' })
@@ -504,7 +498,7 @@ fastify.get('/api/users/:id', async (request, reply) => {
 // --- Video Endpoints ---
 
 fastify.post('/api/uploads', async (request, reply) => {
-  if (!hasClerkKeys) return reply.code(500).send({ error: 'Auth not configured' })
+  
   const { userId } = getAuth(request)
   if (!userId) {
     return reply.code(401).send({ error: 'Unauthorized' })
