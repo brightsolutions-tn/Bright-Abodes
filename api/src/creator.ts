@@ -6,7 +6,6 @@ import { getAuth } from '@clerk/fastify';
 import { v4 as uuidv4 } from 'uuid';
 
 export async function creatorRoutes(fastify: FastifyInstance) {
-  const hasClerkKeys = !!(process.env.CLERK_PUBLISHABLE_KEY && process.env.CLERK_SECRET_KEY);
 
   // Pre-handler hook to ensure user is a creator
   fastify.addHook('preHandler', async (request, reply) => {

@@ -5,7 +5,6 @@ import { eq, and, sql, desc, count, avg, inArray } from 'drizzle-orm';
 import { getAuth } from '@clerk/fastify';
 
 export async function pmRoutes(fastify: FastifyInstance) {
-  const hasClerkKeys = !!(process.env.CLERK_PUBLISHABLE_KEY && process.env.CLERK_SECRET_KEY);
 
   // Pre-handler hook to ensure user is a property manager
   fastify.addHook('preHandler', async (request, reply) => {
